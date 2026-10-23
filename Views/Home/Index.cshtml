@@ -1,8 +1,27 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home - Glass Desk";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center py-5">
+    <h1 class="display-4 fw-bold">Welcome to Glass Desk</h1>
+    <p class="lead text-muted">Transparent, Traceable Citizen Complaint Management System</p>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            @if (ViewBag.DbStatus == "Connected")
+            {
+                <div class="alert alert-success d-flex align-items-center justify-content-center shadow-sm" role="alert">
+                    <span class="badge bg-success me-2">Online</span>
+                    <span>MongoDB connected successfully to <strong>@ViewBag.DbName</strong></span>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger shadow-sm" role="alert">
+                    <span class="badge bg-danger me-2">Offline</span>
+                    <span>@ViewBag.DbStatus</span>
+                </div>
+            }
+        </div>
+    </div>
 </div>
