@@ -26,11 +26,19 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// 5. Seed default admin and demo accounts into MongoDB on startup
-using (var scope = app.Services.CreateScope())
+// 5. Seed default admin and demo accounts safely (will not crash app if DB is booting)
+try
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<IMongoDbContext>();
-    await DbSeeder.SeedUsersAsync(dbContext);
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<IMongoDbContext>();
+        await DbSeeder.SeedUsersAsync(dbContext);
+    }
+}
+catch (Exception ex)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogWarning(ex, "Database seeder could not complete on startup. Check that MongoDB service is running.");
 }
 
 // Configure the HTTP request pipeline.

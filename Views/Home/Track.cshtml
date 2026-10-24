@@ -7,49 +7,51 @@ using System.Diagnostics;
 
 namespace GlassDesk.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly IMongoDbContext _dbContext;
+public class HomeController : Controller
+{
+private readonly IMongoDbContext _dbContext;
 
-        public HomeController(IMongoDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+public HomeController(IMongoDbContext dbContext)
+{
+_dbContext = dbContext;
+}
 
-        public async Task<IActionResult> Index()
-        {
-            try
-            {
-                await _dbContext.Database.RunCommandAsync((Command<BsonDocument>)"{ping:1}");
-                ViewBag.DbStatus = "Connected";
-                ViewBag.DbName = _dbContext.Database.DatabaseNamespace.DatabaseName;
-            }
-            catch (Exception ex)
-            {
-                ViewBag.DbStatus = $"Connection Error: {ex.Message}";
-                ViewBag.DbName = _dbContext.Database.DatabaseNamespace.DatabaseName;
-            }
+public async Task<IActionResult>
+Index()
+{
+try
+{
+await _dbContext.Database.RunCommandAsync((Command<BsonDocument>
+)"{ping:1}");
+ViewBag.DbStatus = "Connected";
+ViewBag.DbName = _dbContext.Database.DatabaseNamespace.DatabaseName;
+}
+catch (Exception ex)
+{
+ViewBag.DbStatus = $"Connection Error: {ex.Message}";
+ViewBag.DbName = _dbContext.Database.DatabaseNamespace.DatabaseName;
+}
 
-            return View();
-        }
+return View();
+}
 
-        // Sub-page: Public Complaint Tracking Lookup (Discussion 20)
-        [HttpGet]
-        public IActionResult Track(string? id)
-        {
-            ViewBag.TrackingId = string.IsNullOrWhiteSpace(id) ? "GD-7K4P-9X2M" : id.Trim().ToUpper();
-            return View();
-        }
+// Sub-page: Public Complaint Tracking Lookup (Discussion 20)
+[HttpGet]
+public IActionResult Track(string? id)
+{
+ViewBag.TrackingId = string.IsNullOrWhiteSpace(id) ? "GD-7K4P-9X2M" : id.Trim().ToUpper();
+return View();
+}
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+public IActionResult Privacy()
+{
+return View();
+}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+public IActionResult Error()
+{
+return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+}
+}
 }
