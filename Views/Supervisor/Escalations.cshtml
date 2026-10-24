@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Escalations & Dispute Review - Glass Desk";
+}
+
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb small">
+            <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Supervisor Portal</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Escalations, Disputes & Reopenings</li>
+        </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h2 class="fw-bold mb-0 text-dark">Supervisor Oversight & Dispute Review</h2>
+            <p class="text-muted mb-0 small">Audit citizen-disputed resolutions, review formal reopening requests, and manage overdue cases.</p>
+        </div>
+        <div>
+            <span class="badge bg-warning text-dark px-3 py-2">
+                <i class="bi bi-gear-wide me-1"></i> Supervisor Review (In Progress)
+            </span>
+        </div>
+    </div>
+
+    <!-- In-Progress Notice -->
+    <div class="alert alert-info d-flex align-items-center shadow-xs border-0 mb-4" role="alert">
+        <i class="bi bi-info-circle-fill fs-4 me-3 text-info"></i>
+        <div>
+            <strong class="d-block">Interactive Supervisory Mock Active</strong>
+            <span class="small">
+                This console demonstrates Discussions 5, 25, & 26. Supervisor adjudication and workflow reversal to active status will connect in the workflow logic phase.
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Disputed Case Adjudication -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 border-start border-4 border-danger mb-4">
+                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="badge bg-danger me-1">Citizen Dispute</span>
+                        <strong class="font-monospace text-primary">GD-9X4M-1B2C</strong>
+                    </div>
+                    <span class="badge bg-warning text-dark">Awaiting Supervisor Adjudication</span>
+                </div>
+                <div class="card-body p-4">
+                    <h5 class="fw-bold text-dark mb-2">Water supply pipeline leak in commercial lane</h5>
+                    <div class="text-muted small mb-3">
+                        <i class="bi bi-geo-alt text-danger me-1"></i> Sector G-9/2 | Assigned Dept: <strong>Water and Sanitation</strong>
+                    </div>
+
+                    <!-- Dispute Details Box -->
+                    <div class="p-3 rounded bg-light border mb-4">
+                        <div class="fw-semibold text-danger small mb-1">
+                            <i class="bi bi-exclamation-octagon me-1"></i> Citizen Dispute Reason (Submitted within 7-Day Window):
+                        </div>
+                        <p class="text-secondary small mb-2">
+                            "The department marked this case resolved, claiming the pipe was sealed. However, water is still seeping through the pavement and flooding our storefront."
+                        </p>
+                        <div class="text-muted small">
+                            <em>Previous Officer Resolution Claim: "Fitted clamp to 4-inch pipe segment."</em>
+                        </div>
+                    </div>
+
+                    <form>
+                        <!-- Adjudication Options -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Supervisor Adjudication Action <span class="text-danger">*</span></label>
+                            <select class="form-select">
+                                <option value="Reopen" selected>Approve Reopening (Return to active InProgress with instructions)</option>
+                                <option value="Uphold">Uphold Resolution (Confirm fix and close case with remarks)</option>
+                                <option value="Reassign">Transfer to New Team / External Agency</option>
+                            </select>
+                        </div>
+
+                        <!-- Supervisor Directives -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Supervisor Directives / Action Notes <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="3" placeholder="e.g. Dispatched senior inspection supervisor to re-evaluate pipe integrity. Case reopened for secondary excavation."></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-1"></i> Back to Oversight
+                            </a>
+                            <button type="button" class="btn btn-teal text-white px-4 fw-semibold shadow-sm" disabled>
+                                <i class="bi bi-shield-check me-1"></i> Record Supervisor Decision (Backend Step)
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overdue SLA Sidebar -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 border-start border-4 border-warning p-3 mb-3">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-warning text-dark">SLA Alert</span>
+                    <strong class="text-dark small">Overdue Response Targets</strong>
+                </div>
+                <p class="text-muted small mb-3">
+                    Monitors cases where department acknowledgment or resolution targets have elapsed (Discussion 25).
+                </p>
+
+                <div class="p-3 rounded bg-light border small">
+                    <div class="d-flex justify-content-between mb-1">
+                        <strong class="font-monospace text-primary">GD-4L2P-8R9K</strong>
+                        <span class="badge bg-danger">+24h Overdue</span>
+                    </div>
+                    <div class="fw-semibold text-dark mb-1">Clogged storm drain near school</div>
+                    <div class="text-muted mb-2">Assigned to: Field Team 3</div>
+                    <button class="btn btn-sm btn-outline-danger w-100" disabled>
+                        <i class="bi bi-bell me-1"></i> Send Expedite Notice
+                    </button>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0 bg-light p-3 small text-muted">
+                <strong class="text-dark d-block mb-1"><i class="bi bi-clock-history text-teal me-1"></i> 7-Day Rule (Discussion 5):</strong>
+                Citizens have exactly 7 days to review resolutions. If no response is received, the case closes automatically as <em>Closed — No Citizen Response</em>, distinguished from confirmed fixes.
+            </div>
+        </div>
+    </div>
+</div>

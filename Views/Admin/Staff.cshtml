@@ -1,0 +1,154 @@
+﻿@{
+    ViewData["Title"] = "Staff Management - Glass Desk";
+}
+
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb small">
+            <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Admin Console</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Staff Account Governance</li>
+        </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h2 class="fw-bold mb-0 text-dark">Staff Governance & Role Provisioning</h2>
+            <p class="text-muted mb-0 small">Create verified staff accounts, assign municipal departments, and manage access privileges.</p>
+        </div>
+        <div>
+            <span class="badge bg-warning text-dark px-3 py-2">
+                <i class="bi bi-gear-wide me-1"></i> Admin Panel (In Progress)
+            </span>
+        </div>
+    </div>
+
+    <!-- In-Progress Notice -->
+    <div class="alert alert-info d-flex align-items-center shadow-xs border-0 mb-4" role="alert">
+        <i class="bi bi-info-circle-fill fs-4 me-3 text-info"></i>
+        <div>
+            <strong class="d-block">Interactive Staff Management Mock Active</strong>
+            <span class="small">
+                This panel demonstrates Discussions 19 & 31. Live administrator user creation and password hash generation will connect in the identity management phase.
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Provision Staff Form -->
+        <div class="col-lg-5">
+            <div class="card shadow-sm border-0 p-4">
+                <h5 class="fw-bold text-dark mb-3"><i class="bi bi-person-plus text-primary me-1"></i> Provision Staff Member</h5>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Full Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control form-control-sm" placeholder="e.g. Inspector Kamran" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Official Email Address <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control form-control-sm" placeholder="officer.kamran@glassdesk.local" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Assign Role <span class="text-danger">*</span></label>
+                        <select class="form-select form-select-sm">
+                            <option>Verification Officer (Central Intake)</option>
+                            <option selected>Department Officer (Operational Staff)</option>
+                            <option>Department Supervisor (Oversight & Disputes)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Assign Municipal Department <span class="text-danger">*</span></label>
+                        <select class="form-select form-select-sm">
+                            <option selected>Water and Sanitation</option>
+                            <option>Transport and Road Services</option>
+                            <option>Municipal Services</option>
+                            <option>Public Health-Service Administration</option>
+                            <option>Public Education-Service Administration</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold small">Temporary Password <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control form-control-sm" value="GlassDesk#2026" />
+                        <div class="form-text small">Must be at least 12 characters (Discussion 33).</div>
+                    </div>
+
+                    <button type="button" class="btn btn-teal text-white w-100 fw-semibold shadow-sm" disabled>
+                        <i class="bi bi-person-check me-1"></i> Provision Staff Account (Backend Step)
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Current Staff Directory -->
+        <div class="col-lg-7">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                    <span class="fw-semibold text-dark">Active Staff Directory</span>
+                    <span class="badge bg-light text-dark border">4 Staff Seeded</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 small">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-3">Name & Email</th>
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th class="text-end pe-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="ps-3">
+                                        <strong>Verification Officer Tariq</strong><br />
+                                        <span class="text-muted">verifier@glassdesk.local</span>
+                                    </td>
+                                    <td><span class="badge bg-info text-dark">Verification Officer</span></td>
+                                    <td>Central Triage</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn btn-outline-danger btn-sm" disabled>Deactivate</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-3">
+                                        <strong>Engr. Usman (Officer)</strong><br />
+                                        <span class="text-muted">officer.water@glassdesk.local</span>
+                                    </td>
+                                    <td><span class="badge bg-secondary">Department Officer</span></td>
+                                    <td>Water and Sanitation</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn btn-outline-danger btn-sm" disabled>Deactivate</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-3">
+                                        <strong>Director Fatima (Supervisor)</strong><br />
+                                        <span class="text-muted">supervisor.water@glassdesk.local</span>
+                                    </td>
+                                    <td><span class="badge bg-warning text-dark">Supervisor</span></td>
+                                    <td>Water and Sanitation</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn btn-outline-danger btn-sm" disabled>Deactivate</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-top py-2 px-3 small text-muted">
+                    <i class="bi bi-shield-lock me-1 text-success"></i>
+                    <strong>Discussion 31 Rule:</strong> Deactivating an account preserves all past complaint action attributions.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

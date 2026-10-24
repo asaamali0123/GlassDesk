@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Priority Triage & Duplicate Review - Glass Desk";
+}
+
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb small">
+            <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Verification Console</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Priority Triage & Duplicate Review</li>
+        </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h2 class="fw-bold mb-0 text-dark">Intake Triage & Duplicate Review</h2>
+            <p class="text-muted mb-0 small">Verify case details, assign official priority, inspect DSA duplicate suggestions, and route to department.</p>
+        </div>
+        <div>
+            <span class="badge bg-warning text-dark px-3 py-2">
+                <i class="bi bi-gear-wide me-1"></i> Triage Console (In Progress)
+            </span>
+        </div>
+    </div>
+
+    <!-- In-Progress Notice -->
+    <div class="alert alert-info d-flex align-items-center shadow-xs border-0 mb-4" role="alert">
+        <i class="bi bi-info-circle-fill fs-4 me-3 text-info"></i>
+        <div>
+            <strong class="d-block">Interactive Triage Mock Active</strong>
+            <span class="small">
+                This console demonstrates Discussions 5, 10, & 23. Live sorting via C# Binary Heap Priority Queue and MongoDB status transitions will connect during the algorithmic processing milestone.
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Main Triage Form Column -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-muted small">Sample Active Case:</span>
+                        <strong class="font-monospace text-primary ms-1">GD-7K4P-9X2M</strong>
+                    </div>
+                    <span class="badge bg-warning text-dark">Status: UnderVerification</span>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Case Overview -->
+                    <div class="mb-4 p-3 rounded bg-light border">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="fw-bold text-dark mb-0">Main water supply line ruptured, flooding street</h5>
+                            <span class="badge bg-secondary">Citizen Urgency: High</span>
+                        </div>
+                        <div class="text-muted small mb-2">
+                            <i class="bi bi-geo-alt text-danger me-1"></i> Area: <strong>Sector G-9/2, Near Commercial Area</strong> | Submitted: <strong>Today</strong>
+                        </div>
+                        <p class="text-secondary small mb-0">
+                            "Clean water has been gushing from the main line since 6:00 AM, flooding adjacent shops and reducing water pressure for residential blocks."
+                        </p>
+                    </div>
+
+                    <form>
+                        <!-- Priority Assignment (Discussion 5) -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Assign Official Priority <span class="text-danger">*</span></label>
+                            <select class="form-select">
+                                <option value="Critical">Critical (Immediate safety / major utility disruption)</option>
+                                <option value="High" selected>High (Significant community impact)</option>
+                                <option value="Normal">Normal (Standard service request)</option>
+                                <option value="Low">Low (Minor cosmetic / non-urgent)</option>
+                            </select>
+                            <div class="form-text small">Determines placement in the C# Priority Queue (Heap).</div>
+                        </div>
+
+                        <!-- Priority Justification -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Priority Justification / Triage Notes <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="2" placeholder="e.g. Verified substantial water loss affecting commercial zone. Escalated to High priority."></textarea>
+                        </div>
+
+                        <!-- Department Assignment -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Assign Responsible Municipal Department <span class="text-danger">*</span></label>
+                            <select class="form-select">
+                                <option value="Water" selected>Water and Sanitation</option>
+                                <option value="Roads">Transport and Road Services</option>
+                                <option value="Municipal">Municipal Services</option>
+                                <option value="Health">Public Health-Service Administration</option>
+                                <option value="Education">Public Education-Service Administration</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left me-1"></i> Back to Queue
+                            </a>
+                            <button type="button" class="btn btn-teal text-white px-4 fw-semibold shadow-sm" disabled>
+                                <i class="bi bi-check-circle me-1"></i> Confirm Triage & Route (Backend Step)
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- DSA Duplicate Detection Sidebar -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 border-start border-4 border-info p-3 mb-3">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge badge-teal">DSA Match Engine</span>
+                    <strong class="text-dark small">Duplicate Suggestions</strong>
+                </div>
+                <p class="text-muted small mb-3">
+                    Our hash-matching algorithm detected 1 potential duplicate in the same approximate area (Discussion 23).
+                </p>
+
+                <!-- Duplicate Candidate Card -->
+                <div class="p-3 rounded bg-light border small">
+                    <div class="d-flex justify-content-between mb-1">
+                        <strong class="font-monospace text-primary">GD-3P9L-2K8F</strong>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle">88% Match</span>
+                    </div>
+                    <div class="fw-semibold text-dark mb-1">Water leakage in G-9/2 market</div>
+                    <div class="text-muted mb-2">Submitted 45 mins prior by another citizen.</div>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-primary w-100" disabled>Link as Duplicate</button>
+                        <button class="btn btn-sm btn-outline-secondary w-100" disabled>Keep Separate</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0 bg-light p-3 small text-muted">
+                <strong class="text-dark d-block mb-1"><i class="bi bi-shield-check text-success me-1"></i> Discussion 23 Rule:</strong>
+                The system provides automated duplicate suggestions, but <em>never</em> automatically rejects a case. Final routing is always decided by an authorized officer.
+            </div>
+        </div>
+    </div>
+</div>

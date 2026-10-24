@@ -11,7 +11,6 @@ namespace GlassDesk.Controllers
     {
         private readonly IMongoDbContext _dbContext;
 
-        // Constructor Dependency Injection
         public HomeController(IMongoDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -21,7 +20,6 @@ namespace GlassDesk.Controllers
         {
             try
             {
-                // Ping the MongoDB server to confirm active connection
                 await _dbContext.Database.RunCommandAsync((Command<BsonDocument>)"{ping:1}");
                 ViewBag.DbStatus = "Connected";
                 ViewBag.DbName = _dbContext.Database.DatabaseNamespace.DatabaseName;
@@ -32,6 +30,14 @@ namespace GlassDesk.Controllers
                 ViewBag.DbName = _dbContext.Database.DatabaseNamespace.DatabaseName;
             }
 
+            return View();
+        }
+
+        // Sub-page: Public Complaint Tracking Lookup (Discussion 20)
+        [HttpGet]
+        public IActionResult Track(string? id)
+        {
+            ViewBag.TrackingId = string.IsNullOrWhiteSpace(id) ? "GD-7K4P-9X2M" : id.Trim().ToUpper();
             return View();
         }
 

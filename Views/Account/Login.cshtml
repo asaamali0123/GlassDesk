@@ -1,0 +1,101 @@
+﻿@model GlassDesk.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Sign In - Glass Desk";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4 class="mb-0 fw-bold">Sign In to Glass Desk</h4>
+                    <small class="text-white-50">Select your portal and enter your credentials</small>
+                </div>
+                <div class="card-body p-4">
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Login" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="ReturnUrl" />
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Role Portal Selector -->
+                        <div class="mb-3">
+                            <label asp-for="SelectedRole" class="form-label fw-semibold">Target Role Portal</label>
+                            <select asp-for="SelectedRole" class="form-select">
+                                <option value="">-- Auto-Detect Portal from Account --</option>
+                                <option value="Citizen">Citizen Portal</option>
+                                <option value="VerificationOfficer">Verification Officer Portal</option>
+                                <option value="DepartmentOfficer">Department Officer (Staff) Portal</option>
+                                <option value="Supervisor">Department Supervisor Portal</option>
+                                <option value="Administrator">System Administrator Portal</option>
+                            </select>
+                            <span asp-validation-for="SelectedRole" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold">Email Address</label>
+                            <input asp-for="Email" class="form-control" placeholder="name@example.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label fw-semibold">Password</label>
+                            <input asp-for="Password" class="form-control" type="password" placeholder="••••••••••••" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" asp-for="RememberMe" />
+                            <label class="form-check-label text-muted" asp-for="RememberMe">
+                                Keep me signed in
+                            </label>
+                        </div>
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg fw-semibold">Sign In</button>
+                        </div>
+
+                        <div class="text-center pt-2 border-top">
+                            <span class="text-muted">Need a Citizen account? </span>
+                            <a asp-action="Register" class="fw-semibold text-decoration-none">Sign Up Here</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Demo Helper Box for Testing and Teacher Presentation -->
+            <div class="card mt-4 border-0 bg-light text-muted small shadow-sm">
+                <div class="card-body">
+                    <strong class="d-block mb-1 text-dark">Demo Test Accounts (Seeded automatically in next step):</strong>
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Citizen:</strong> citizen@glassdesk.local</li>
+                        <li><strong>Verification Officer:</strong> verifier@glassdesk.local</li>
+                        <li><strong>Department Officer:</strong> officer.water@glassdesk.local</li>
+                        <li><strong>Supervisor:</strong> supervisor.water@glassdesk.local</li>
+                        <li><strong>Admin:</strong> admin@glassdesk.local</li>
+                        <li class="mt-1 text-primary"><em>Default Password: <code>GlassDesk#2026</code></em></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

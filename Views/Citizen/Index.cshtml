@@ -1,0 +1,167 @@
+﻿@model List<GlassDesk.Models.Complaint>
+@{
+    ViewData["Title"] = "My Citizen Portal - Glass Desk";
+
+    var totalSubmitted = Model?.Count ?? 0;
+    var inProgress = Model?.Count(c => c.Status == GlassDesk.Models.ComplaintStatus.UnderVerification ||
+                                       c.Status == GlassDesk.Models.ComplaintStatus.Assigned ||
+                                       c.Status == GlassDesk.Models.ComplaintStatus.InProgress) ?? 0;
+    var awaitingReview = Model?.Count(c => c.Status == GlassDesk.Models.ComplaintStatus.AwaitingCitizenReview) ?? 0;
+    var resolved = Model?.Count(c => c.Status == GlassDesk.Models.ComplaintStatus.Resolved ||
+                                     c.Status == GlassDesk.Models.ComplaintStatus.ClosedNoResponse) ?? 0;
+}
+
+<div class="container py-4">
+    <!-- Header Section -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom gap-3">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <h2 class="fw-bold mb-0 text-dark">Citizen Portal</h2>
+                <span class="badge badge-teal">Verified Citizen</span>
+            </div>
+            <p class="text-muted mb-0 small">
+                Welcome back, <strong>@User.Identity?.Name</strong> | Track your active service complaints and review department resolutions.
+            </p>
+        </div>
+        <div>
+            <a asp-action="Submit" class="btn btn-teal text-white shadow-sm px-3">
+                <i class="bi bi-plus-circle me-1"></i> Submit New Complaint
+            </a>
+            <a asp-action="Submit" class="btn btn-primary px-4 py-2">
+                <i class="bi bi-plus-circle me-1"></i> + Submit Your First Complaint
+            </a>
+        </div>
+    </div>
+
+    <!-- Live Operational Metric Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 shadow-xs border p-3">
+                <div class="text-muted small text-uppercase fw-semibold mb-1">Total Submitted</div>
+                <div class="h2 fw-bold text-dark mb-0">@totalSubmitted</div>
+                <div class="text-muted small mt-2">All-time submissions</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 shadow-xs border p-3">
+                <div class="text-muted small text-uppercase fw-semibold mb-1">Under Action</div>
+                <div class="h2 fw-bold text-warning mb-0">@inProgress</div>
+                <div class="text-muted small mt-2">Verification & active repairs</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 shadow-xs border p-3 @(awaitingReview > 0 ? "border-teal border-2" : "")">
+                <div class="text-muted small text-uppercase fw-semibold mb-1">Awaiting Your Review</div>
+                <div class="h2 fw-bold text-teal mb-0">@awaitingReview</div>
+                <div class="text-muted small mt-2">7-day review window active</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 shadow-xs border p-3">
+                <div class="text-muted small text-uppercase fw-semibold mb-1">Resolved Cases</div>
+                <div class="h2 fw-bold text-success mb-0">@resolved</div>
+                <div class="text-muted small mt-2">Confirmed closed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Complaints Management Panel -->
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+            <div class="fw-semibold text-dark">
+                <i class="bi bi-list-task me-1 text-teal"></i> My Complaint History
+            </div>
+            <span class="badge bg-light text-dark border">
+                @totalSubmitted @(totalSubmitted == 1 ? "Record" : "Records")
+            </span>
+        </div>
+
+        <div class="card-body p-0">
+            @if (Model == null || !Model.Any())
+            {
+                <!-- Friendly Empty State for First-Time Citizens (Section 5) -->
+                <div class="text-center py-5 px-3">
+                    <div class="p-4 rounded-circle d-inline-flex align-items-center justify-content-center bg-light border mb-3" style="width: 80px; height: 80px;">
+                        <i class="bi bi-inbox fs-1 text-muted"></i>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-2">No Complaints Submitted Yet</h5>
+                    <p class="text-muted small mx-auto mb-4" style="max-width: 440px;">
+                        Have you noticed a municipal issue like a water pipe burst, road pothole, or street light outage in your area? Report it to start a tracked case.
+                    </p>
+                    <button class="btn btn-primary px-4 py-2" disabled>
+                        <i class="bi bi-plus-circle me-1"></i> + Submit Your First Complaint
+                    </button>
+                </div>
+            }
+            else
+            {
+                <!-- Complaints Table -->
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 small">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-3">Public Tracking ID</th>
+                                <th>Issue / Title</th>
+                                <th>Category</th>
+                                <th>Approx. Area</th>
+                                <th>Priority</th>
+                                <th>Current Status</th>
+                                <th>Submitted On</th>
+                                <th class="text-end pe-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var complaint in Model)
+                            {
+                                <tr>
+                                    <td class="ps-3">
+                                        <span class="font-monospace fw-bold text-primary">@complaint.PublicId</span>
+                                    </td>
+                                    <td>
+                                        <div class="fw-semibold text-dark">@complaint.Title</div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">@complaint.Category</span></td>
+                                    <td class="text-muted">@complaint.ApproximateLocation</td>
+                                    <td>
+                                        @if (complaint.OfficialPriority == GlassDesk.Models.ComplaintPriority.Critical)
+                                        {
+                                            <span class="badge bg-danger">Critical</span>
+                                        }
+                                        else if (complaint.OfficialPriority == GlassDesk.Models.ComplaintPriority.High)
+                                        {
+                                            <span class="badge bg-warning text-dark">High</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">@complaint.OfficialPriority</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (complaint.Status == GlassDesk.Models.ComplaintStatus.AwaitingCitizenReview)
+                                        {
+                                            <span class="badge bg-info text-dark">Action Required: Review Fix</span>
+                                        }
+                                        else if (complaint.Status == GlassDesk.Models.ComplaintStatus.Resolved)
+                                        {
+                                            <span class="badge bg-success">Resolved</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-primary">@complaint.Status</span>
+                                        }
+                                    </td>
+                                    <td class="text-muted">@complaint.CreatedAt.ToString("MMM dd, yyyy")</td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn btn-outline-secondary btn-sm" disabled>
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
