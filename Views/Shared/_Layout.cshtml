@@ -6,105 +6,120 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Glass Desk</title>
-
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
+    
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-
-    <!-- Civic-Tech Design System -->
+    
+    <!-- Dark Civic-Tech Design System -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body class="bg-light d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100" style="background-color: var(--gd-bg-base); color: var(--gd-text-primary);">
 
-    <!-- Civic Header / Navbar -->
-    <header class="sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-2" style="background-color: var(--gd-navy); border-bottom: 1px solid rgba(255,255,255,0.08);">
+    <!-- Dark Civic Header -->
+    <header class="sticky-top" style="z-index: 1030;">
+        <nav class="navbar navbar-expand-lg py-2" style="background-color: var(--gd-bg-nav); border-bottom: 1px solid var(--gd-border);">
             <div class="container">
-                <!-- Brand -->
-                <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-white text-decoration-none" asp-controller="Home" asp-action="Index">
-                    <span class="badge" style="background-color: var(--gd-teal); font-size: 0.85rem; padding: 0.4rem 0.6rem; letter-spacing: 0.05em;">GD</span>
-                    <span class="fs-5 tracking-tight">Glass Desk</span>
+                <!-- Brand Identity: Geometric Mark + Name + Slogan -->
+                <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none py-1" asp-controller="Home" asp-action="Index">
+                    <!-- Geometric Layered Glass Emblem -->
+                    <div class="d-flex align-items-center justify-content-center rounded" style="width: 34px; height: 34px; background: linear-gradient(135deg, rgba(45, 212, 191, 0.2) 0%, rgba(165, 180, 252, 0.1) 100%); border: 1px solid rgba(45, 212, 191, 0.4);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="3" stroke="#2DD4BF" stroke-width="2" stroke-opacity="0.9"/>
+                            <path d="M3 13L21 13" stroke="#2DD4BF" stroke-width="1.5" stroke-dasharray="2 2"/>
+                            <path d="M13 3L13 21" stroke="#2DD4BF" stroke-width="1.5" stroke-dasharray="2 2"/>
+                            <circle cx="13" cy="13" r="3" fill="#2DD4BF"/>
+                        </svg>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="fw-bold tracking-tight text-white lh-1" style="font-size: 1.15rem; letter-spacing: -0.02em;">
+                            Glass Desk
+                        </span>
+                        <span class="text-muted d-none d-sm-inline" style="font-size: 0.68rem; letter-spacing: 0.03em; color: var(--gd-text-secondary) !important;">
+                            Every Concern. Clear Progress.
+                        </span>
+                    </div>
                 </a>
 
                 <!-- Mobile Toggle -->
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#civicNavbar" aria-controls="civicNavbar"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#glassNavbar" aria-controls="glassNavbar"
+                        aria-expanded="false" aria-label="Toggle navigation" style="color: var(--gd-text-secondary);">
+                    <i class="bi bi-list fs-3"></i>
                 </button>
 
                 <!-- Navigation Links -->
-                <div class="collapse navbar-collapse" id="civicNavbar">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
-                        <!-- Public Portal (Open to All) -->
+                <div class="collapse navbar-collapse" id="glassNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3 align-items-lg-center">
+                        <!-- Public Portal Link -->
                         <li class="nav-item">
-                            <a class="nav-link text-white-50 px-3" asp-controller="Home" asp-action="Index">
-                                <i class="bi bi-globe2 me-1"></i> Public Portal
+                            <a class="nav-link px-3 small fw-medium" asp-controller="Home" asp-action="Index" style="color: var(--gd-text-secondary);">
+                                <i class="bi bi-globe2 me-1 text-teal"></i> Public Portal
                             </a>
                         </li>
 
-                        <!-- Role-Specific Direct Links -->
+                        <!-- Role-Specific Direct Workspace Links -->
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
                             @if (User.IsInRole(UserRoles.Citizen))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-semibold px-3" asp-controller="Citizen" asp-action="Index">
-                                        <i class="bi bi-person-workspace me-1"></i> My Citizen Portal
+                                    <a class="nav-link px-3 small fw-semibold text-white" asp-controller="Citizen" asp-action="Index">
+                                        <i class="bi bi-person-workspace me-1" style="color: var(--gd-teal);"></i> Citizen Portal
                                     </a>
                                 </li>
                             }
                             else if (User.IsInRole(UserRoles.VerificationOfficer))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-semibold px-3" asp-controller="VerificationOfficer" asp-action="Index">
-                                        <i class="bi bi-check2-square me-1"></i> Verification & Triage
+                                    <a class="nav-link px-3 small fw-semibold text-white" asp-controller="VerificationOfficer" asp-action="Index">
+                                        <i class="bi bi-check2-square me-1" style="color: var(--gd-teal);"></i> Verification & Triage
                                     </a>
                                 </li>
                             }
                             else if (User.IsInRole(UserRoles.DepartmentOfficer))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-semibold px-3" asp-controller="DepartmentOfficer" asp-action="Index">
-                                        <i class="bi bi-tools me-1"></i> Department Operations
+                                    <a class="nav-link px-3 small fw-semibold text-white" asp-controller="DepartmentOfficer" asp-action="Index">
+                                        <i class="bi bi-tools me-1" style="color: var(--gd-teal);"></i> Department Queue
                                     </a>
                                 </li>
                             }
                             else if (User.IsInRole(UserRoles.Supervisor))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-semibold px-3" asp-controller="Supervisor" asp-action="Index">
-                                        <i class="bi bi-speedometer2 me-1"></i> Supervisor Oversight
+                                    <a class="nav-link px-3 small fw-semibold text-white" asp-controller="Supervisor" asp-action="Index">
+                                        <i class="bi bi-speedometer2 me-1" style="color: var(--gd-teal);"></i> Supervisor Oversight
                                     </a>
                                 </li>
                             }
                             else if (User.IsInRole(UserRoles.Administrator))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-white fw-semibold px-3" asp-controller="Admin" asp-action="Index">
-                                        <i class="bi bi-gear-wide-connected me-1"></i> Admin Console
+                                    <a class="nav-link px-3 small fw-semibold text-white" asp-controller="Admin" asp-action="Index">
+                                        <i class="bi bi-gear-wide-connected me-1" style="color: var(--gd-teal);"></i> Admin Console
                                     </a>
                                 </li>
                             }
                         }
                     </ul>
 
-                    <!-- User Account / Authentication Controls -->
+                    <!-- Right-Side Account Controls -->
                     <ul class="navbar-nav ms-auto align-items-center gap-2">
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item text-white d-flex align-items-center gap-2 me-2">
-                                <span class="small text-white-50 d-none d-md-inline">User:</span>
-                                <span class="fw-semibold small">@User.Identity.Name</span>
-                                <span class="badge" style="background-color: var(--gd-teal); font-size: 0.75rem;">
+                            <li class="nav-item d-flex align-items-center gap-2 me-2">
+                                <span class="d-none d-md-inline" style="font-size: 0.82rem; color: var(--gd-text-secondary);">Logged in as:</span>
+                                <span class="fw-semibold text-white" style="font-size: 0.88rem;">@User.Identity.Name</span>
+                                <span class="badge badge-teal" style="font-size: 0.7rem;">
                                     @User.FindFirst(ClaimTypes.Role)?.Value
                                 </span>
                             </li>
                             <li class="nav-item">
                                 <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                                     @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-outline-light btn-sm px-3" style="font-size: 0.85rem;">
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm px-3" style="font-size: 0.82rem;">
                                         <i class="bi bi-box-arrow-right me-1"></i> Sign Out
                                     </button>
                                 </form>
@@ -113,13 +128,13 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="btn btn-outline-light btn-sm px-3" asp-controller="Account" asp-action="Login">
+                                <a class="btn btn-outline-secondary btn-sm px-3" asp-controller="Account" asp-action="Login">
                                     <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-teal btn-sm px-3 text-white fw-semibold shadow-sm" asp-controller="Account" asp-action="Register">
-                                    <i class="bi bi-person-plus me-1"></i> Citizen Sign Up
+                                <a class="btn btn-teal btn-sm px-3 text-dark fw-semibold" asp-controller="Account" asp-action="Register">
+                                    <i class="bi bi-person-plus me-1"></i> Create Citizen Account
                                 </a>
                             </li>
                         }
@@ -129,32 +144,34 @@
         </nav>
     </header>
 
-    <!-- Main Content Area -->
-    <main role="main" class="flex-grow-1 animate-fade-in">
+    <!-- Main Workspace Container -->
+    <main role="main" class="flex-grow-1 animate-entrance">
         @RenderBody()
     </main>
 
-    <!-- Civic Footer -->
-    <footer class="mt-auto border-top py-4 text-muted small" style="background-color: #ffffff;">
+    <!-- Refined Dark Civic Footer -->
+    <footer class="mt-auto py-4" style="background-color: var(--gd-bg-nav); border-top: 1px solid var(--gd-border);">
         <div class="container">
             <div class="row align-items-center gy-3">
-                <div class="col-md-6 text-center text-md-start">
-                    <div class="fw-semibold text-dark mb-1">
-                        <span class="badge bg-secondary-subtle text-dark me-1">Prototype</span> Glass Desk — Municipal Complaint Management Platform
+                <div class="col-md-7 text-center text-md-start">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-1">
+                        <span class="fw-bold text-white" style="font-size: 0.95rem;">Glass Desk</span>
+                        <span class="text-muted">•</span>
+                        <span style="font-size: 0.85rem; color: var(--gd-teal);">Every Concern. Clear Progress.</span>
                     </div>
-                    <div class="text-muted" style="font-size: 0.82rem;">
-                        Transparent, traceable citizen-government service accountability.
+                    <div class="small" style="color: var(--gd-text-secondary); font-size: 0.8rem;">
+                        Report It. Track It. Resolve It. — A transparent, traceable civic complaint management platform.
                     </div>
                 </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <div class="p-2 rounded border bg-light text-secondary d-inline-block text-start" style="font-size: 0.78rem; max-width: 420px;">
+                <div class="col-md-5 text-center text-md-end">
+                    <div class="p-2 rounded d-inline-block text-start small" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border); font-size: 0.76rem; color: var(--gd-text-secondary); max-width: 420px;">
                         <i class="bi bi-shield-exclamation text-warning me-1"></i>
-                        <strong>Notice:</strong> Glass Desk is a student prototype. In case of immediate physical danger, contact local emergency services.
+                        <strong>Notice:</strong> Glass Desk is a student prototype. In case of immediate physical emergency, contact local emergency services.
                     </div>
                 </div>
             </div>
-            <div class="border-top mt-3 pt-3 text-center text-muted" style="font-size: 0.78rem;">
-                &copy; @DateTime.UtcNow.Year Glass Desk. Designed with accessible civic-tech standards.
+            <div class="mt-3 pt-3 text-center small" style="border-top: 1px solid var(--gd-border); font-size: 0.76rem; color: var(--gd-text-muted);">
+                &copy; @DateTime.UtcNow.Year Glass Desk. Built with ASP.NET Core MVC, C#, and MongoDB.
             </div>
         </div>
     </footer>

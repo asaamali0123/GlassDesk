@@ -1,128 +1,155 @@
 ﻿@{
-    ViewData["Title"] = "Department Work Orders - Glass Desk";
+    ViewData["Title"] = "Work Orders & Resolution Evidence — Glass Desk";
 }
 
 <div class="container py-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb small">
-            <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Department Portal</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Work Orders & Resolution Evidence</li>
+            <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Department Operations</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Work Orders & Resolution Console</li>
         </ol>
     </nav>
 
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom" style="border-color: var(--gd-border) !important;">
         <div>
-            <h2 class="fw-bold mb-0 text-dark">Active Work Orders & Resolution Console</h2>
-            <p class="text-muted mb-0 small">Acknowledge assignments, log repair milestones, upload resolution proof, or transfer misrouted cases.</p>
+            <h2 class="fw-bold mb-0 text-white" style="letter-spacing: -0.02em;">Active Work Orders & Resolution Console</h2>
+            <p class="small mb-0" style="color: var(--gd-text-secondary);">
+                Acknowledge assignments, post field progress milestones, upload fix evidence, or execute documented department transfers.
+            </p>
         </div>
         <div>
-            <span class="badge bg-warning text-dark px-3 py-2">
+            <span class="badge bg-warning text-dark px-3 py-2 fw-semibold">
                 <i class="bi bi-gear-wide me-1"></i> Operations View (In Progress)
             </span>
         </div>
     </div>
 
-    <!-- In-Progress Notice -->
-    <div class="alert alert-info d-flex align-items-center shadow-xs border-0 mb-4" role="alert">
+    <!-- Prototype State Notice -->
+    <div class="alert alert-info d-flex align-items-center shadow-xs border-0 mb-4" role="alert" style="background-color: var(--gd-info-bg); border: 1px solid rgba(96, 165, 250, 0.25);">
         <i class="bi bi-info-circle-fill fs-4 me-3 text-info"></i>
         <div>
-            <strong class="d-block">Interactive Operations Mock Active</strong>
-            <span class="small">
-                This console demonstrates Discussions 4, 5, & 24. Live file upload handling for resolution evidence and status transition validation will connect in the workflow logic phase.
+            <strong class="d-block text-white small">Interactive Field Operations Mock Active</strong>
+            <span class="small" style="color: var(--gd-text-secondary);">
+                This console demonstrates Discussions 4, 5, & 24. Live resolution photo storage, transfer history logging, and the 7-day citizen review clock connect during the workflow logic milestone.
             </span>
         </div>
     </div>
 
     <!-- Active Work Order Card -->
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+    <div class="card shadow-sm border mb-4" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
             <div class="d-flex align-items-center gap-2">
-                <span class="badge bg-secondary">Water and Sanitation</span>
-                <span class="text-muted small">Work Order ID:</span>
-                <strong class="font-monospace text-primary">GD-7K4P-9X2M</strong>
+                <span class="badge badge-teal">Water and Sanitation</span>
+                <span class="small" style="color: var(--gd-text-muted);">Work Order ID:</span>
+                <span class="font-monospace fw-bold" style="color: var(--gd-teal);">GD-7K4P-9X2M</span>
             </div>
             <div class="d-flex gap-2">
-                <span class="badge bg-warning text-dark">Status: InProgress</span>
+                <span class="badge" style="background-color: var(--gd-warning-bg); color: var(--gd-warning); border: 1px solid rgba(251, 191, 36, 0.3);">
+                    Status: InProgress
+                </span>
                 <span class="badge bg-danger">Priority: High</span>
             </div>
         </div>
 
         <div class="card-body p-4">
             <div class="row g-4">
-                <!-- Case Summary -->
+                <!-- Case Summary & Timeline Column -->
                 <div class="col-lg-7">
-                    <h5 class="fw-bold text-dark mb-2">Main water supply line ruptured, flooding street</h5>
-                    <div class="d-flex gap-3 text-muted small mb-3">
-                        <span><i class="bi bi-geo-alt text-danger me-1"></i> Sector G-9/2, Commercial Area</span>
-                        <span><i class="bi bi-calendar-event me-1"></i> Assigned: Today, 09:30 AM</span>
+                    <h5 class="fw-bold text-white mb-2">Main water supply line ruptured, flooding street</h5>
+                    <div class="d-flex flex-wrap gap-3 small mb-3" style="color: var(--gd-text-secondary);">
+                        <span><i class="bi bi-geo-alt text-danger me-1"></i> Sector G-9/2, Near Commercial Area</span>
+                        <span><i class="bi bi-calendar-event me-1 text-teal"></i> Assigned: Today, 09:30 AM</span>
                     </div>
 
-                    <div class="p-3 rounded bg-light border mb-4">
-                        <div class="small fw-semibold text-dark mb-1">Citizen Issue Report:</div>
-                        <p class="text-secondary small mb-0">
+                    <!-- Citizen Issue Context -->
+                    <div class="p-3 rounded border mb-4" style="background-color: var(--gd-bg-secondary); border-color: var(--gd-border) !important;">
+                        <div class="small fw-semibold text-white mb-1">Citizen Issue Report:</div>
+                        <p class="small mb-0" style="color: var(--gd-text-secondary); line-height: 1.6;">
                             "Clean water has been gushing from the main line since 6:00 AM, flooding adjacent shops and reducing water pressure for residential blocks."
                         </p>
                     </div>
 
-                    <!-- Progress Milestone History -->
-                    <h6 class="fw-bold text-dark mb-2"><i class="bi bi-clock-history text-teal me-1"></i> Timeline Milestones</h6>
-                    <div class="border-start border-2 border-teal ps-3 ms-2 mb-3 small">
+                    <!-- Recorded Progress Milestones (Discussion 43) -->
+                    <h6 class="fw-bold text-white mb-2 d-flex align-items-center gap-1">
+                        <i class="bi bi-clock-history text-teal me-1"></i> Recorded Action History
+                    </h6>
+                    <div class="position-relative ps-3 ms-2 mb-3" style="border-left: 2px solid var(--gd-teal); font-size: 0.8rem;">
                         <div class="mb-2">
-                            <span class="text-muted">Today 09:45 AM:</span>
-                            <strong class="text-dark">Assignment Acknowledged</strong> by Engr. Usman (Officer).
+                            <span style="color: var(--gd-text-muted);">Today 09:45 AM:</span>
+                            <strong class="text-white d-block">Assignment Acknowledged</strong>
+                            <span style="color: var(--gd-text-secondary);">Officer Usman accepted work order. Separate acknowledgment SLA recorded.</span>
                         </div>
                         <div>
-                            <span class="text-muted">Today 11:15 AM:</span>
-                            <span class="text-dark">Field repair crew dispatched with excavation team to locate the rupture.</span>
+                            <span style="color: var(--gd-text-muted);">Today 11:15 AM:</span>
+                            <strong class="text-white d-block">Field Crew Deployed</strong>
+                            <span style="color: var(--gd-text-secondary);">Repair team dispatched with excavation unit to isolate damaged 4-inch pipe section.</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Action Controls Column -->
+                <!-- Officer Action Controls Column -->
                 <div class="col-lg-5">
-                    <div class="card shadow-xs border p-3 bg-light">
-                        <h6 class="fw-bold text-dark mb-3"><i class="bi bi-pencil-square me-1"></i> Officer Actions</h6>
+                    <div class="card p-3 border shadow-xs" style="background-color: var(--gd-bg-secondary); border-color: var(--gd-border);">
+                        <h6 class="fw-bold text-white mb-3 d-flex align-items-center gap-1">
+                            <i class="bi bi-pencil-square text-teal me-1"></i> Operational Actions
+                        </h6>
 
-                        <!-- 1. Submit Proposed Resolution -->
+                        <!-- Action 1: Submit Proposed Resolution -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold small">1. Submit Proposed Resolution & Proof (Discussion 4 & 5)</label>
-                            <textarea class="form-control mb-2" rows="2" placeholder="Describe the completed repair details..."></textarea>
-                            <label class="form-label small text-muted">Resolution Photo / Evidence File <span class="text-danger">*</span></label>
+                            <label class="form-label small fw-semibold text-white">
+                                1. Submit Resolution & Fix Evidence (Discussion 4 & 5)
+                            </label>
+                            <textarea class="form-control form-control-sm mb-2" rows="2" placeholder="Describe the completed repair details (e.g. Ruptured pipe section replaced and pressure tested)..."></textarea>
+
+                            <label class="form-label small" style="color: var(--gd-text-secondary); font-size: 0.76rem;">
+                                Repair Evidence Photo / File <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control form-control-sm mb-2" type="file" accept=".jpg,.png,.pdf" />
-                            <div class="form-text small mb-2">Evidence is required to transition to <em>Awaiting Citizen Review</em>.</div>
-                            <button class="btn btn-teal btn-sm text-white w-100 fw-semibold" disabled>
+
+                            <div class="small mb-2" style="color: var(--gd-text-muted); font-size: 0.72rem;">
+                                Mandatory proof: transitions case to <em>Awaiting Citizen Review</em> and starts 7-day clock.
+                            </div>
+
+                            <button class="btn btn-teal btn-sm text-dark w-100 fw-semibold" disabled>
                                 <i class="bi bi-check2-circle me-1"></i> Submit Resolution for Citizen Review
                             </button>
                         </div>
 
-                        <hr />
+                        <hr style="border-color: var(--gd-border);" />
 
-                        <!-- 2. Transfer Case (Discussion 24) -->
+                        <!-- Action 2: Transfer Case -->
                         <div>
-                            <label class="form-label fw-semibold small">2. Transfer to Another Department (Discussion 24)</label>
+                            <label class="form-label small fw-semibold text-white">
+                                2. Transfer Case to Another Department (Discussion 24)
+                            </label>
                             <select class="form-select form-select-sm mb-2">
                                 <option>-- Select Department --</option>
-                                <option>Transport and Road Services</option>
-                                <option>Municipal Services</option>
+                                <option>Transport and Road Services (Pavement repair needed)</option>
+                                <option>Municipal Services (Street drainage damaged)</option>
                                 <option>Public Health-Service Administration</option>
                                 <option>Public Education-Service Administration</option>
                             </select>
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Mandatory transfer reason..." />
+
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Mandatory transfer reason (Discussion 24)..." />
+
                             <button class="btn btn-outline-secondary btn-sm w-100" disabled>
-                                <i class="bi bi-arrow-left-right me-1"></i> Transfer Case
+                                <i class="bi bi-arrow-left-right me-1"></i> Record & Transfer Case
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between align-items-center pt-3 mt-3 border-top">
+            <!-- Footer Return Strip -->
+            <div class="d-flex justify-content-between align-items-center pt-3 mt-3 border-top" style="border-color: var(--gd-border) !important;">
                 <a asp-action="Index" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+                    <i class="bi bi-arrow-left me-1"></i> Back to Queue
                 </a>
-                <span class="text-muted small">Glass Desk Automated SLA Tracking Active</span>
+                <span class="small" style="color: var(--gd-text-muted); font-size: 0.76rem;">
+                    <i class="bi bi-shield-check text-teal me-1"></i> Glass Desk Automated SLA & Audit Tracking Active
+                </span>
             </div>
         </div>
     </div>

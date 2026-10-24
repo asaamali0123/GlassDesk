@@ -1,87 +1,97 @@
-﻿@{
-    ViewData["Title"] = "Glass Desk — Transparent Governance, Traceable Civic Action";
+﻿@using GlassDesk.Models
+@{
+    ViewData["Title"] = "Glass Desk — Every Concern. Clear Progress.";
 }
 
 <!-- ==========================================================================
-     HERO SECTION
+     HERO SECTION WITH AMBIENT ACCENT LIGHTING
      ========================================================================== -->
-<section class="py-5 text-white" style="background: linear-gradient(135deg, var(--gd-navy) 0%, var(--gd-navy-light) 100%); border-bottom: 3px solid var(--gd-teal);">
+<section class="position-relative py-5 overflow-hidden" style="background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(45, 212, 191, 0.12), rgba(11, 17, 32, 0) 100%); border-bottom: 1px solid var(--gd-border);">
     <div class="container py-4">
-        <div class="row align-items-center gy-4">
+        <div class="row align-items-center gy-5">
+            <!-- Left: Value Proposition & CTAs -->
             <div class="col-lg-7">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3 text-white small" style="background-color: rgba(13, 148, 136, 0.25); border: 1px solid rgba(20, 184, 166, 0.4);">
-                    <i class="bi bi-shield-check text-warning"></i>
-                    <span class="fw-semibold">Civic Redressal & Transparency Platform</span>
+                <!-- Civic Badge -->
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3 small" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border);">
+                    <span class="badge badge-teal py-0 px-2" style="font-size: 0.68rem;">Civic Redressal</span>
+                    <span style="color: var(--gd-text-secondary); font-size: 0.82rem;">Every Concern. Clear Progress.</span>
                 </div>
-                <h1 class="display-4 fw-bold text-white mb-2 tracking-tight">
-                    Glass Desk
+
+                <h1 class="display-4 fw-bold text-white mb-3" style="letter-spacing: -0.03em; line-height: 1.15;">
+                    Transparent Municipal Governance. <span style="color: var(--gd-teal);">Traceable Action.</span>
                 </h1>
-                <p class="fs-4 text-white-50 fw-normal mb-3" style="color: #94a3b8 !important;">
-                    Transparent Governance, Traceable Civic Action
-                </p>
-                <p class="lead text-light mb-4" style="max-width: 580px; font-size: 1.05rem; opacity: 0.9;">
-                    A municipal grievance system built for accountability. Report public infrastructure issues, track verified department workflows with unique IDs, and review claimed resolutions before cases close.
+
+                <p class="lead mb-4" style="color: var(--gd-text-secondary); font-size: 1.1rem; max-width: 580px; line-height: 1.6;">
+                    Report local service breakdowns, track verified department workflows with unique public IDs, and inspect mandatory repair evidence before cases close.
                 </p>
 
-                <div class="d-flex flex-wrap gap-3">
-                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                <!-- Primary & Secondary CTAs -->
+                <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                    @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Citizen))
                     {
-                        @if (User.IsInRole("Citizen"))
-                        {
-                            <a asp-controller="Citizen" asp-action="Index" class="btn btn-teal btn-lg px-4 shadow-sm text-white fw-semibold">
-                                <i class="bi bi-plus-circle me-1"></i> Go to Citizen Portal
-                            </a>
-                        }
-                        else
-                        {
-                            <a href="#departments" class="btn btn-teal btn-lg px-4 shadow-sm text-white fw-semibold">
-                                <i class="bi bi-grid me-1"></i> View Departments
-                            </a>
-                        }
+                        <a asp-controller="Citizen" asp-action="Submit" class="btn btn-teal btn-lg px-4 text-dark fw-semibold shadow-sm">
+                            <i class="bi bi-pencil-square me-1"></i> Submit a Complaint
+                        </a>
+                        <a asp-controller="Citizen" asp-action="Index" class="btn btn-outline-secondary btn-lg px-3">
+                            <i class="bi bi-person-workspace me-1"></i> My Complaints
+                        </a>
                     }
                     else
                     {
-                        <a asp-controller="Account" asp-action="Register" class="btn btn-teal btn-lg px-4 shadow-sm text-white fw-semibold">
+                        <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="/Citizen/Submit" class="btn btn-teal btn-lg px-4 text-dark fw-semibold shadow-sm">
                             <i class="bi bi-pencil-square me-1"></i> Submit a Complaint
                         </a>
-                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light btn-lg px-4">
-                            <i class="bi bi-person me-1"></i> Staff Sign In
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary btn-lg px-3">
+                            <i class="bi bi-person-plus me-1"></i> Create Citizen Account
                         </a>
                     }
-                    <a href="#track-section" class="btn btn-outline-light btn-lg px-3">
-                        <i class="bi bi-search me-1"></i> Track Case
+                    <a href="#track-inquiry" class="btn btn-outline-light btn-lg px-3" style="border-color: var(--gd-border);">
+                        <i class="bi bi-search me-1 text-teal"></i> Track Complaint
                     </a>
+                </div>
+
+                <!-- Motto Bar -->
+                <div class="d-flex align-items-center gap-3 pt-2" style="color: var(--gd-text-muted); font-size: 0.84rem;">
+                    <span><i class="bi bi-check2 text-teal me-1"></i> Report It</span>
+                    <span>•</span>
+                    <span><i class="bi bi-check2 text-teal me-1"></i> Track It</span>
+                    <span>•</span>
+                    <span><i class="bi bi-check2 text-teal me-1"></i> Resolve It</span>
                 </div>
             </div>
 
-            <!-- Quick Public Lookup Card -->
-            <div class="col-lg-5" id="track-section">
-                <div class="card shadow-lg border-0 p-3" style="background-color: var(--gd-surface); border-radius: var(--gd-radius-lg);">
+            <!-- Right: Public Tracking Inquiry Card -->
+            <div class="col-lg-5" id="track-inquiry">
+                <div class="card p-3 shadow-md" style="background-color: var(--gd-bg-card); border: 1px solid var(--gd-border); border-radius: var(--gd-radius-lg);">
                     <div class="card-body p-3">
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <span class="badge" style="background-color: var(--gd-teal); color: #fff;">Public Lookup</span>
-                            <small class="text-muted">Privacy-safe case inquiry</small>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge badge-teal">Public Tracking</span>
+                            <span class="small" style="color: var(--gd-text-muted); font-size: 0.76rem;">No sign-in required</span>
                         </div>
-                        <h5 class="fw-bold text-dark mb-2">Track Any Complaint</h5>
-                        <p class="text-muted small mb-3">
-                            Enter the public tracking ID (e.g. <code>GD-7K4P-9X2M</code>) provided upon complaint submission to check its current status.
+
+                        <h5 class="fw-bold text-white mb-1">Track Case Progress</h5>
+                        <p class="small mb-3" style="color: var(--gd-text-secondary); line-height: 1.5;">
+                            Enter any public reference number (e.g. <code>GD-7K4P-9X2M</code>) to view approved milestones, department progress, and status timelines.
                         </p>
 
-                        <form asp-controller="Home" asp-action="Track" method="get" class="mb-3">
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-end-0 text-muted">
-                                    <i class="bi bi-search"></i>
-                                </span>
-                                <input type="text" name="id" class="form-control border-start-0" placeholder="e.g. GD-7K4P-9X2M" value="GD-7K4P-9X2M" aria-label="Complaint ID" style="text-transform: uppercase;">
-                                <button class="btn btn-primary px-3" type="submit">
-                                    Track Status
-                                </button>
+                        <form asp-controller="Home" asp-action="Track" method="get">
+                            <div class="mb-3">
+                                <label class="form-label small" style="color: var(--gd-text-secondary);">Public Reference ID</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-search" style="color: var(--gd-teal);"></i>
+                                    </span>
+                                    <input type="text" name="id" class="form-control" placeholder="e.g. GD-7K4P-9X2M" value="GD-7K4P-9X2M" style="text-transform: uppercase; font-family: monospace; letter-spacing: 0.05em;" required />
+                                </div>
                             </div>
+                            <button class="btn btn-teal w-100 text-dark fw-semibold" type="submit">
+                                <i class="bi bi-arrow-right-circle me-1"></i> View Case Timeline
+                            </button>
                         </form>
 
-                        <div class="d-flex align-items-center justify-content-between p-2 rounded bg-light border small text-muted">
-                            <span><i class="bi bi-lock me-1 text-success"></i> Privacy Protected</span>
-                            <span>No citizen contact info exposed</span>
+                        <div class="mt-3 pt-3 d-flex align-items-center justify-content-between small" style="border-top: 1px solid var(--gd-border); color: var(--gd-text-muted); font-size: 0.78rem;">
+                            <span><i class="bi bi-shield-lock me-1" style="color: var(--gd-success);"></i> Anonymized Data</span>
+                            <span>Citizen identities protected</span>
                         </div>
                     </div>
                 </div>
@@ -91,61 +101,68 @@
 </section>
 
 <!-- ==========================================================================
-     LIVE SYSTEM HEALTH & STANDARDS METRICS
+     LIVE SYSTEM HEALTH & DATA INTEGRITY STRIP
      ========================================================================== -->
-<section class="py-3 bg-white border-bottom shadow-xs">
+<section class="py-3" style="background-color: var(--gd-bg-nav); border-bottom: 1px solid var(--gd-border);">
     <div class="container">
         <div class="row g-3 text-center text-md-start align-items-center">
+            <!-- Database State -->
             <div class="col-md-3">
                 <div class="d-flex align-items-center gap-3 justify-content-center justify-content-md-start">
-                    <div class="p-2 rounded-circle" style="background-color: var(--gd-info-bg);">
-                        <i class="bi bi-database-check fs-4 text-info"></i>
+                    <div class="p-2 rounded" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border);">
+                        <i class="bi bi-database-check fs-4" style="color: var(--gd-teal);"></i>
                     </div>
                     <div>
-                        <div class="small text-muted text-uppercase fw-semibold" style="font-size: 0.72rem;">Database Connectivity</div>
-                        <div class="fw-bold text-dark">
+                        <div class="small fw-semibold" style="color: var(--gd-text-muted); font-size: 0.72rem; text-transform: uppercase;">Persistence State</div>
+                        <div class="fw-bold small">
                             @if (ViewBag.DbStatus == "Connected")
                             {
-                                <span class="text-success"><i class="bi bi-circle-fill" style="font-size: 0.6rem;"></i> MongoDB Online</span>
+                                <span style="color: var(--gd-success);"><i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> MongoDB Online</span>
                             }
                             else
                             {
-                                <span class="text-danger"><i class="bi bi-circle-fill" style="font-size: 0.6rem;"></i> @ViewBag.DbStatus</span>
+                                <span style="color: var(--gd-critical);"><i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Database Offline</span>
                             }
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Review Standard -->
             <div class="col-md-3">
                 <div class="d-flex align-items-center gap-3 justify-content-center justify-content-md-start">
-                    <div class="p-2 rounded-circle" style="background-color: var(--gd-success-bg);">
-                        <i class="bi bi-clock-history fs-4 text-success"></i>
+                    <div class="p-2 rounded" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border);">
+                        <i class="bi bi-clock-history fs-4" style="color: var(--gd-warning);"></i>
                     </div>
                     <div>
-                        <div class="small text-muted text-uppercase fw-semibold" style="font-size: 0.72rem;">Review Window</div>
-                        <div class="fw-bold text-dark">7-Day Citizen Confirmation</div>
+                        <div class="small fw-semibold" style="color: var(--gd-text-muted); font-size: 0.72rem; text-transform: uppercase;">Citizen Review SLA</div>
+                        <div class="fw-bold small text-white">7-Day Mandatory Confirmation</div>
                     </div>
                 </div>
             </div>
+
+            <!-- Fix Evidence -->
             <div class="col-md-3">
                 <div class="d-flex align-items-center gap-3 justify-content-center justify-content-md-start">
-                    <div class="p-2 rounded-circle" style="background-color: var(--gd-warning-bg);">
-                        <i class="bi bi-card-checklist fs-4 text-warning"></i>
+                    <div class="p-2 rounded" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border);">
+                        <i class="bi bi-image fs-4" style="color: var(--gd-indigo);"></i>
                     </div>
                     <div>
-                        <div class="small text-muted text-uppercase fw-semibold" style="font-size: 0.72rem;">Resolution Standard</div>
-                        <div class="fw-bold text-dark">Mandatory Fix Evidence</div>
+                        <div class="small fw-semibold" style="color: var(--gd-text-muted); font-size: 0.72rem; text-transform: uppercase;">Resolution Proof</div>
+                        <div class="fw-bold small text-white">Mandatory Repair Photos</div>
                     </div>
                 </div>
             </div>
+
+            <!-- Triage Engine -->
             <div class="col-md-3">
                 <div class="d-flex align-items-center gap-3 justify-content-center justify-content-md-start">
-                    <div class="p-2 rounded-circle" style="background-color: var(--gd-surface-muted);">
-                        <i class="bi bi-diagram-3 fs-4" style="color: var(--gd-navy);"></i>
+                    <div class="p-2 rounded" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border);">
+                        <i class="bi bi-diagram-3 fs-4" style="color: var(--gd-teal);"></i>
                     </div>
                     <div>
-                        <div class="small text-muted text-uppercase fw-semibold" style="font-size: 0.72rem;">Triage Mechanism</div>
-                        <div class="fw-bold text-dark">DSA Priority Queue & Heap</div>
+                        <div class="small fw-semibold" style="color: var(--gd-text-muted); font-size: 0.72rem; text-transform: uppercase;">Triage Engine</div>
+                        <div class="fw-bold small text-white">C# Binary Heap Priority Queue</div>
                     </div>
                 </div>
             </div>
@@ -154,67 +171,63 @@
 </section>
 
 <!-- ==========================================================================
-     HOW IT WORKS — 4-STEP TRANSPARENCY PIPELINE
+     3-STEP TRANSPARENCY PIPELINE ("REPORT IT. TRACK IT. RESOLVE IT.")
      ========================================================================== -->
-<section class="py-5" style="background-color: var(--gd-bg);">
+<section class="py-5" style="background-color: var(--gd-bg-base);">
     <div class="container py-2">
         <div class="text-center mb-5">
-            <span class="badge badge-teal mb-2">Traceable Lifecycle</span>
-            <h2 class="fw-bold text-dark mb-2">How Glass Desk Resolves Public Complaints</h2>
-            <p class="text-muted mx-auto" style="max-width: 620px;">
-                Every action is timestamped, attributed, and verified. No complaint is closed without proof and citizen review.
+            <span class="badge badge-teal mb-2">Accountability Process</span>
+            <h2 class="fw-bold text-white mb-2">How Public Issues Reach Verified Resolution</h2>
+            <p class="mx-auto" style="color: var(--gd-text-secondary); max-width: 600px; font-size: 0.95rem;">
+                Glass Desk prevents complaints from getting lost in government bureaucracy. Every step is attributed, recorded, and verifiable.
             </p>
         </div>
 
         <div class="row g-4">
             <!-- Step 1 -->
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 56px; height: 56px; background-color: var(--gd-info-bg); color: var(--gd-navy);">
-                        <span class="fw-bold fs-5">1</span>
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="badge badge-teal">Step 01</span>
+                        <div class="p-2 rounded" style="background-color: var(--gd-bg-secondary); color: var(--gd-teal);">
+                            <i class="bi bi-send fs-4"></i>
+                        </div>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">Citizen Submission</h5>
-                    <p class="text-muted small mb-0">
-                        Citizen submits complaint with approximate area and optional photo. Receives a randomized tracking ID.
+                    <h5 class="fw-bold text-white mb-2">1. Report It</h5>
+                    <p class="small mb-0" style="color: var(--gd-text-secondary); line-height: 1.6;">
+                        Citizens submit the issue with an approximate area, urgency level, and optional photos. The system generates a collision-free public reference ID (e.g. <code>GD-7K4P-9X2M</code>).
                     </p>
                 </div>
             </div>
 
             <!-- Step 2 -->
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 56px; height: 56px; background-color: var(--gd-warning-bg); color: var(--gd-warning);">
-                        <span class="fw-bold fs-5">2</span>
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="badge badge-indigo">Step 02</span>
+                        <div class="p-2 rounded" style="background-color: var(--gd-bg-secondary); color: var(--gd-indigo);">
+                            <i class="bi bi-check2-circle fs-4"></i>
+                        </div>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">Verification & Triage</h5>
-                    <p class="text-muted small mb-0">
-                        Verification Officer assigns official priority with justification, checks duplicate candidates, and routes to department.
+                    <h5 class="fw-bold text-white mb-2">2. Track It</h5>
+                    <p class="small mb-0" style="color: var(--gd-text-secondary); line-height: 1.6;">
+                        A Central Verification Officer assesses official priority with recorded reasons and routes the case to the responsible department. Officers acknowledge work and log progress milestones.
                     </p>
                 </div>
             </div>
 
             <!-- Step 3 -->
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 56px; height: 56px; background-color: rgba(13, 148, 136, 0.15); color: var(--gd-teal);">
-                        <span class="fw-bold fs-5">3</span>
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="badge bg-success" style="font-size: 0.72rem;">Step 03</span>
+                        <div class="p-2 rounded" style="background-color: var(--gd-bg-secondary); color: var(--gd-success);">
+                            <i class="bi bi-shield-check fs-4"></i>
+                        </div>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">Work & Evidence</h5>
-                    <p class="text-muted small mb-0">
-                        Department Officer acknowledges, updates progress, and uploads verifiable photo evidence of the completed repair.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="col-md-6 col-lg-3">
-                <div class="card h-100 border-0 shadow-sm p-4 text-center">
-                    <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 56px; height: 56px; background-color: var(--gd-success-bg); color: var(--gd-success);">
-                        <span class="fw-bold fs-5">4</span>
-                    </div>
-                    <h5 class="fw-bold text-dark mb-2">Citizen Review</h5>
-                    <p class="text-muted small mb-0">
-                        Citizen has 7 days to confirm or dispute. If disputed, case escalates directly to the Department Supervisor.
+                    <h5 class="fw-bold text-white mb-2">3. Resolve It</h5>
+                    <p class="small mb-0" style="color: var(--gd-text-secondary); line-height: 1.6;">
+                        Department staff upload mandatory repair photo evidence. The citizen receives 7 days to inspect the fix and confirm or dispute. Disputed cases escalate to the Department Supervisor.
                     </p>
                 </div>
             </div>
@@ -225,85 +238,92 @@
 <!-- ==========================================================================
      MUNICIPAL SERVICE DEPARTMENTS
      ========================================================================== -->
-<section class="py-5 bg-white border-top border-bottom" id="departments">
+<section class="py-5" style="background-color: var(--gd-bg-nav); border-top: 1px solid var(--gd-border); border-bottom: 1px solid var(--gd-border);">
     <div class="container py-2">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
             <div>
-                <span class="badge badge-navy mb-2">Municipal Directory</span>
-                <h2 class="fw-bold text-dark mb-1">Active Service Departments</h2>
-                <p class="text-muted mb-0 small">The 5 municipal authorities connected to Glass Desk for workflow processing.</p>
+                <span class="badge badge-teal mb-2">Active Infrastructure</span>
+                <h2 class="fw-bold text-white mb-1">Municipal Service Departments</h2>
+                <p class="small mb-0" style="color: var(--gd-text-secondary);">Direct routing to the 5 municipal divisions connected to Glass Desk.</p>
             </div>
             <div class="mt-3 mt-md-0">
-                <span class="badge bg-light text-dark border px-3 py-2">All Departments Online</span>
+                <span class="badge" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border); color: var(--gd-text-secondary); padding: 0.45rem 0.85rem;">
+                    <i class="bi bi-check-circle-fill me-1" style="color: var(--gd-success);"></i> 5 Departments Seeded
+                </span>
             </div>
         </div>
 
         <div class="row g-3">
+            <!-- Dept 1: Water -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-xs border card-interactive p-3">
+                <div class="card card-interactive h-100 p-3">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="p-3 rounded" style="background-color: #e0f2fe; color: #0284c7;">
+                        <div class="p-3 rounded" style="background-color: rgba(96, 165, 250, 0.12); color: #60A5FA;">
                             <i class="bi bi-droplet-half fs-4"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold text-dark mb-1">Water and Sanitation</h6>
-                            <p class="text-muted small mb-0">Water supply lines, sewage leaks, garbage collection, and contamination.</p>
+                            <h6 class="fw-bold text-white mb-1">Water and Sanitation</h6>
+                            <p class="small mb-0" style="color: var(--gd-text-secondary);">Pipeline ruptures, water contamination, sewage overflows, and drainage blockages.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Dept 2: Roads -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-xs border card-interactive p-3">
+                <div class="card card-interactive h-100 p-3">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="p-3 rounded" style="background-color: #fef3c7; color: #b45309;">
+                        <div class="p-3 rounded" style="background-color: rgba(251, 191, 36, 0.12); color: #FBBF24;">
                             <i class="bi bi-cone-striped fs-4"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold text-dark mb-1">Transport and Road Services</h6>
-                            <p class="text-muted small mb-0">Potholes, broken signals, street paving, road hazards, and pedestrian walkways.</p>
+                            <h6 class="fw-bold text-white mb-1">Transport & Road Services</h6>
+                            <p class="small mb-0" style="color: var(--gd-text-secondary);">Potholes, broken signals, pavement erosion, missing signage, and sidewalk hazards.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Dept 3: Municipal -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-xs border card-interactive p-3">
+                <div class="card card-interactive h-100 p-3">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="p-3 rounded" style="background-color: #f1f5f9; color: var(--gd-navy);">
+                        <div class="p-3 rounded" style="background-color: var(--gd-teal-glow); color: var(--gd-teal);">
                             <i class="bi bi-buildings fs-4"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold text-dark mb-1">Municipal Services</h6>
-                            <p class="text-muted small mb-0">Street lighting, public park maintenance, encroachment, and civic facilities.</p>
+                            <h6 class="fw-bold text-white mb-1">Municipal Services</h6>
+                            <p class="small mb-0" style="color: var(--gd-text-secondary);">Streetlight outages, public park maintenance, civic facility repairs, and public grounds.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Dept 4: Health -->
             <div class="col-md-6">
-                <div class="card h-100 shadow-xs border card-interactive p-3">
+                <div class="card card-interactive h-100 p-3">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="p-3 rounded" style="background-color: #dcfce7; color: #15803d;">
+                        <div class="p-3 rounded" style="background-color: var(--gd-success-bg); color: var(--gd-success);">
                             <i class="bi bi-hospital fs-4"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold text-dark mb-1">Public Health-Service Administration</h6>
-                            <p class="text-muted small mb-0">Sanitary inspections, community vector control, and public health standards.</p>
+                            <h6 class="fw-bold text-white mb-1">Public Health-Service Administration</h6>
+                            <p class="small mb-0" style="color: var(--gd-text-secondary);">Garbage dump clear-out, sanitary hazard inspections, and community disease vector control.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Dept 5: Education -->
             <div class="col-md-6">
-                <div class="card h-100 shadow-xs border card-interactive p-3">
+                <div class="card card-interactive h-100 p-3">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="p-3 rounded" style="background-color: #f3e8ff; color: #7e22ce;">
+                        <div class="p-3 rounded" style="background-color: rgba(165, 180, 252, 0.12); color: var(--gd-indigo);">
                             <i class="bi bi-mortarboard fs-4"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold text-dark mb-1">Public Education-Service Administration</h6>
-                            <p class="text-muted small mb-0">Municipal school facility maintenance, safety hazards, and utility repairs.</p>
+                            <h6 class="fw-bold text-white mb-1">Public Education-Service Administration</h6>
+                            <p class="small mb-0" style="color: var(--gd-text-secondary);">Municipal school structure safety, boundary wall damage, and classroom utility repairs.</p>
                         </div>
                     </div>
                 </div>
@@ -313,39 +333,43 @@
 </section>
 
 <!-- ==========================================================================
-     TRANSPARENCY & CITIZEN PRIVACY SAFEGUARDS
+     PRIVACY & CIVIC TRUST ARCHITECTURE (DISCUSSIONS 4 & 20)
      ========================================================================== -->
-<section class="py-5" style="background-color: var(--gd-bg);">
+<section class="py-5" style="background-color: var(--gd-bg-base);">
     <div class="container py-2">
-        <div class="card border-0 shadow-sm p-4 p-md-5" style="border-radius: var(--gd-radius-lg); background: linear-gradient(135deg, #ffffff 0%, var(--gd-surface-muted) 100%);">
+        <div class="card p-4 p-md-5 border" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-lg);">
             <div class="row align-items-center gy-4">
                 <div class="col-lg-8">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="badge badge-navy">Privacy-First Architecture</span>
-                        <small class="text-muted">Security by Design (Discussion 4 & 20)</small>
+                        <span class="badge badge-teal">Security By Design</span>
+                        <span class="small" style="color: var(--gd-text-muted);">Discussions 4, 20 & 21</span>
                     </div>
-                    <h3 class="fw-bold text-dark mb-3">Transparency Without Compromising Citizen Privacy</h3>
-                    <p class="text-muted mb-3">
-                        Glass Desk records public complaint actions and timestamps for civic accountability, but strict safeguards protect your identity:
+                    <h3 class="fw-bold text-white mb-3">Transparency Without Compromising Citizen Privacy</h3>
+                    <p class="small mb-4" style="color: var(--gd-text-secondary); line-height: 1.6;">
+                        Government accountability requires verifiable progress timestamps, but personal information must never be weaponized or exposed. Glass Desk implements strict data minimization:
                     </p>
-                    <div class="row g-2 small text-muted">
-                        <div class="col-md-6">
-                            <div><i class="bi bi-check-circle-fill text-success me-2"></i>Citizen names and phones are never shown publicly</div>
+                    <div class="row g-3 small" style="color: var(--gd-text-secondary);">
+                        <div class="col-md-6 d-flex align-items-center gap-2">
+                            <i class="bi bi-shield-check" style="color: var(--gd-success);"></i>
+                            <span>Citizen names and phone numbers are never published</span>
                         </div>
-                        <div class="col-md-6">
-                            <div><i class="bi bi-check-circle-fill text-success me-2"></i>Exact home addresses are masked to approximate areas</div>
+                        <div class="col-md-6 d-flex align-items-center gap-2">
+                            <i class="bi bi-shield-check" style="color: var(--gd-success);"></i>
+                            <span>Private street addresses masked to approximate areas</span>
                         </div>
-                        <div class="col-md-6">
-                            <div><i class="bi bi-check-circle-fill text-success me-2"></i>Internal staff remarks remain strictly protected</div>
+                        <div class="col-md-6 d-flex align-items-center gap-2">
+                            <i class="bi bi-shield-check" style="color: var(--gd-success);"></i>
+                            <span>Internal staff notes are kept strictly confidential</span>
                         </div>
-                        <div class="col-md-6">
-                            <div><i class="bi bi-check-circle-fill text-success me-2"></i>Randomized public tracking IDs prevent case enumeration</div>
+                        <div class="col-md-6 d-flex align-items-center gap-2">
+                            <i class="bi bi-shield-check" style="color: var(--gd-success);"></i>
+                            <span>Random tracking IDs prevent sequential scraping</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 text-center">
-                    <div class="p-4 rounded-circle d-inline-flex align-items-center justify-content-center border shadow-xs" style="width: 120px; height: 120px; background-color: #ffffff;">
-                        <i class="bi bi-shield-lock-fill display-4 text-primary" style="color: var(--gd-navy) !important;"></i>
+                    <div class="p-4 rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 110px; height: 110px; background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border);">
+                        <i class="bi bi-shield-lock fs-1" style="color: var(--gd-teal);"></i>
                     </div>
                 </div>
             </div>

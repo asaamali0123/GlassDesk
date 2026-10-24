@@ -1,0 +1,127 @@
+﻿@{
+    ViewData["Title"] = "Verification & Triage Console — Glass Desk";
+}
+
+<div class="container py-4">
+    <!-- Header Section -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom gap-3" style="border-color: var(--gd-border) !important;">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <h2 class="fw-bold mb-0 text-white" style="letter-spacing: -0.02em;">Central Verification & Triage</h2>
+                <span class="badge badge-teal">Intake Authority</span>
+            </div>
+            <p class="small mb-0" style="color: var(--gd-text-secondary);">
+                Officer: <strong>@User.Identity?.Name</strong> | Central Intake & Department Routing
+            </p>
+        </div>
+        <div>
+            <a asp-action="Triage" class="btn btn-teal text-dark fw-semibold shadow-sm px-4">
+                <i class="bi bi-funnel me-1"></i> Open Triage Console
+            </a>
+        </div>
+    </div>
+
+    <!-- Triage Operational Metrics -->
+    <div class="row g-3 mb-4">
+        <!-- Metric 1: Awaiting Verification -->
+        <div class="col-md-4">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-warning) !important; border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Awaiting Verification</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-warning);">1</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Incoming cases requiring official priority</div>
+            </div>
+        </div>
+
+        <!-- Metric 2: Critical Flags -->
+        <div class="col-md-4">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-critical) !important; border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Critical / High Flags</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-critical);">1</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Immediate community impact cases</div>
+            </div>
+        </div>
+
+        <!-- Metric 3: Duplicate Candidates -->
+        <div class="col-md-4">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-teal) !important; border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">DSA Duplicate Matches</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-teal);">1</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Candidate duplicates flagged for review</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intake Triage Queue Table -->
+    <div class="card shadow-sm border" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fw-semibold text-white small">
+                    <i class="bi bi-inbox me-1" style="color: var(--gd-teal);"></i> Incoming Cases Awaiting Assessment
+                </span>
+                <span class="badge" style="background-color: var(--gd-bg-card); border: 1px solid var(--gd-border); color: var(--gd-text-secondary); font-size: 0.68rem;">
+                    DSA Priority Queue Ordering
+                </span>
+            </div>
+            <span class="badge badge-teal">1 Pending Case</span>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 small">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-3">Public Tracking ID</th>
+                            <th>Reported Summary</th>
+                            <th>Category</th>
+                            <th>Approx. Area</th>
+                            <th>Citizen Urgency</th>
+                            <th>Status</th>
+                            <th>Submitted</th>
+                            <th class="text-end pe-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ps-3">
+                                <span class="font-monospace fw-bold" style="color: var(--gd-teal);">GD-7K4P-9X2M</span>
+                            </td>
+                            <td>
+                                <strong class="text-white d-block">Main water supply line ruptured</strong>
+                                <span class="small" style="color: var(--gd-text-secondary);">Water flooding main commercial road near market.</span>
+                            </td>
+                            <td>
+                                <span class="badge" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border); color: var(--gd-text-secondary);">Water & Sanitation</span>
+                            </td>
+                            <td style="color: var(--gd-text-secondary);">Sector G-9/2</td>
+                            <td>
+                                <span class="badge bg-warning text-dark">High</span>
+                            </td>
+                            <td>
+                                <span class="badge" style="background-color: var(--gd-warning-bg); color: var(--gd-warning); border: 1px solid rgba(251, 191, 36, 0.3);">
+                                    UnderVerification
+                                </span>
+                            </td>
+                            <td style="color: var(--gd-text-muted);">Today 06:15 AM</td>
+                            <td class="text-end pe-3">
+                                <a asp-action="Triage" class="btn btn-teal btn-sm text-dark fw-semibold px-3" style="font-size: 0.78rem;">
+                                    <i class="bi bi-funnel me-1"></i> Triage Case
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer Architecture Note -->
+        <div class="card-footer d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 small" style="background-color: var(--gd-bg-secondary); border-top: 1px solid var(--gd-border); font-size: 0.76rem; color: var(--gd-text-muted);">
+            <div>
+                <i class="bi bi-diagram-3 me-1" style="color: var(--gd-teal);"></i>
+                <strong>Discussion 10:</strong> Verification Officers set official priority (Critical/High/Normal/Low), which feeds into the C# Binary Heap queue.
+            </div>
+            <div>
+                <span class="badge" style="background-color: var(--gd-bg-card); border: 1px solid var(--gd-border); color: var(--gd-text-secondary);">Central Triage Active</span>
+            </div>
+        </div>
+    </div>
+</div>

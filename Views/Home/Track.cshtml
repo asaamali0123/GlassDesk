@@ -1,57 +1,145 @@
-﻿using GlassDesk.Data;
-using GlassDesk.Models;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using System.Diagnostics;
-
-namespace GlassDesk.Controllers
-{
-public class HomeController : Controller
-{
-private readonly IMongoDbContext _dbContext;
-
-public HomeController(IMongoDbContext dbContext)
-{
-_dbContext = dbContext;
+﻿@{
+    ViewData["Title"] = "Track Complaint Status — Glass Desk";
+    var trackingId = ViewBag.TrackingId as string ?? "GD-7K4P-9X2M";
 }
 
-public async Task<IActionResult>
-Index()
-{
-try
-{
-await _dbContext.Database.RunCommandAsync((Command<BsonDocument>
-)"{ping:1}");
-ViewBag.DbStatus = "Connected";
-ViewBag.DbName = _dbContext.Database.DatabaseNamespace.DatabaseName;
-}
-catch (Exception ex)
-{
-ViewBag.DbStatus = $"Connection Error: {ex.Message}";
-ViewBag.DbName = _dbContext.Database.DatabaseNamespace.DatabaseName;
-}
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb small">
+            <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Public Portal</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Case Inquiry</li>
+        </ol>
+    </nav>
 
-return View();
-}
+    <!-- Top Tracking Query Card -->
+    <div class="card p-4 mb-4 border shadow-sm" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+        <div class="row align-items-center gy-3">
+            <div class="col-lg-6">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="badge badge-teal">Public Case Inquiry</span>
+                    <span class="small text-muted">Discussion 20 & 21</span>
+                </div>
+                <h3 class="fw-bold text-white mb-1">Track Case Progress</h3>
+                <p class="small mb-0" style="color: var(--gd-text-secondary);">
+                    Enter any public complaint identifier to inspect verified milestones and department progress.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <form asp-action="Track" method="get">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-search" style="color: var(--gd-teal);"></i>
+                        </span>
+                        <input type="text" name="id" class="form-control" value="@trackingId" placeholder="Enter Public ID (e.g. GD-7K4P-9X2M)" style="text-transform: uppercase; font-family: monospace; letter-spacing: 0.05em;" required>
+                        <button class="btn btn-teal text-dark fw-semibold px-4" type="submit">
+                            Search Case
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-// Sub-page: Public Complaint Tracking Lookup (Discussion 20)
-[HttpGet]
-public IActionResult Track(string? id)
-{
-ViewBag.TrackingId = string.IsNullOrWhiteSpace(id) ? "GD-7K4P-9X2M" : id.Trim().ToUpper();
-return View();
-}
+    <!-- Case Status & Milestone Details -->
+    <div class="card shadow-sm border mb-4" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-lg);">
+        <!-- Card Header -->
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+            <div class="d-flex align-items-center gap-2">
+                <span class="small" style="color: var(--gd-text-muted);">Tracking Record:</span>
+                <span class="font-monospace fw-bold fs-5" style="color: var(--gd-teal); letter-spacing: 0.04em;">@trackingId</span>
+            </div>
+            <div class="d-flex gap-2">
+                <span class="badge bg-warning">Status: In Progress</span>
+                <span class="badge badge-indigo">Priority: High</span>
+            </div>
+        </div>
 
-public IActionResult Privacy()
-{
-return View();
-}
+        <div class="card-body p-4">
+            <!-- Anonymized Metadata Grid (Discussion 20) -->
+            <div class="row g-3 mb-4 p-3 rounded border" style="background-color: var(--gd-bg-secondary); border-color: var(--gd-border) !important;">
+                <div class="col-6 col-md-3">
+                    <small class="fw-semibold d-block text-uppercase" style="color: var(--gd-text-muted); font-size: 0.7rem; letter-spacing: 0.04em;">Category</small>
+                    <span class="fw-semibold text-white small">Water and Sanitation</span>
+                </div>
+                <div class="col-6 col-md-3">
+                    <small class="fw-semibold d-block text-uppercase" style="color: var(--gd-text-muted); font-size: 0.7rem; letter-spacing: 0.04em;">Approximate Area</small>
+                    <span class="fw-semibold text-white small"><i class="bi bi-geo-alt text-danger me-1"></i> Sector G-9/2</span>
+                </div>
+                <div class="col-6 col-md-3">
+                    <small class="fw-semibold d-block text-uppercase" style="color: var(--gd-text-muted); font-size: 0.7rem; letter-spacing: 0.04em;">Assigned Department</small>
+                    <span class="fw-semibold text-white small">Water and Sanitation Dept</span>
+                </div>
+                <div class="col-6 col-md-3">
+                    <small class="fw-semibold d-block text-uppercase" style="color: var(--gd-text-muted); font-size: 0.7rem; letter-spacing: 0.04em;">Response Target</small>
+                    <span class="fw-semibold small" style="color: var(--gd-teal);"><i class="bi bi-clock-history me-1"></i> Active within SLA</span>
+                </div>
+            </div>
 
-[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-public IActionResult Error()
-{
-return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-}
-}
-}
+            <!-- Visual Chronological Timeline (Discussion 43) -->
+            <h5 class="fw-bold text-white mb-3"><i class="bi bi-clock-history me-2" style="color: var(--gd-teal);"></i> Verifiable Progress Timeline</h5>
+            
+            <div class="position-relative ps-4 ms-2 py-2" style="border-left: 2px solid var(--gd-border);">
+                <!-- Milestone 1: Registered -->
+                <div class="mb-4 position-relative">
+                    <div class="position-absolute rounded-circle" style="width: 12px; height: 12px; left: -23px; top: 4px; background-color: var(--gd-teal); box-shadow: 0 0 8px rgba(45, 212, 191, 0.4);"></div>
+                    <div class="small" style="color: var(--gd-text-muted);">Today • 06:15 AM UTC</div>
+                    <strong class="text-white d-block small">Complaint Registered by Citizen</strong>
+                    <span class="small" style="color: var(--gd-text-secondary);">Case logged into municipal intake and assigned randomized public identifier.</span>
+                </div>
+
+                <!-- Milestone 2: Verified -->
+                <div class="mb-4 position-relative">
+                    <div class="position-absolute rounded-circle" style="width: 12px; height: 12px; left: -23px; top: 4px; background-color: var(--gd-teal); box-shadow: 0 0 8px rgba(45, 212, 191, 0.4);"></div>
+                    <div class="small" style="color: var(--gd-text-muted);">Today • 08:30 AM UTC</div>
+                    <strong class="text-white d-block small">Intake Verified & Official Priority Assigned</strong>
+                    <span class="small" style="color: var(--gd-text-secondary);">Central Verification Officer confirmed High priority due to commercial water main rupture. Routed to Water and Sanitation.</span>
+                </div>
+
+                <!-- Milestone 3: Acknowledged -->
+                <div class="mb-4 position-relative">
+                    <div class="position-absolute rounded-circle" style="width: 12px; height: 12px; left: -23px; top: 4px; background-color: var(--gd-teal); box-shadow: 0 0 8px rgba(45, 212, 191, 0.4);"></div>
+                    <div class="small" style="color: var(--gd-text-muted);">Today • 09:45 AM UTC</div>
+                    <strong class="text-white d-block small">Assignment Acknowledged by Department</strong>
+                    <span class="small" style="color: var(--gd-text-secondary);">Field operations accepted work order and assigned repair crew.</span>
+                </div>
+
+                <!-- Milestone 4: In Progress -->
+                <div class="mb-4 position-relative">
+                    <div class="position-absolute rounded-circle" style="width: 12px; height: 12px; left: -23px; top: 4px; background-color: var(--gd-warning); box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);"></div>
+                    <div class="small" style="color: var(--gd-text-muted);">Today • 11:15 AM UTC</div>
+                    <strong class="text-white d-block small">Active Repair Work in Progress</strong>
+                    <span class="small" style="color: var(--gd-text-secondary);">Excavation and pipe isolation crew deployed on site to replace damaged section.</span>
+                </div>
+
+                <!-- Milestone 5: Pending Citizen Review -->
+                <div class="mb-4 position-relative">
+                    <div class="position-absolute rounded-circle" style="width: 12px; height: 12px; left: -23px; top: 4px; background-color: var(--gd-border);"></div>
+                    <div class="small" style="color: var(--gd-text-muted);">Upcoming Step</div>
+                    <strong class="d-block small" style="color: var(--gd-text-secondary);">Resolution Evidence & Citizen Confirmation</strong>
+                    <span class="small" style="color: var(--gd-text-muted);">Department will upload repair photo proof. Citizen has 7 days to confirm or dispute.</span>
+                </div>
+
+                <!-- Milestone 6: Final Outcome -->
+                <div class="position-relative">
+                    <div class="position-absolute rounded-circle" style="width: 12px; height: 12px; left: -23px; top: 4px; background-color: var(--gd-border);"></div>
+                    <strong class="d-block small" style="color: var(--gd-text-muted);">Case Closure & Citizen Feedback</strong>
+                    <span class="small" style="color: var(--gd-text-muted);">Final case closure and optional satisfaction rating.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Footer with Privacy Guarantee -->
+        <div class="card-footer d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 small" style="background-color: var(--gd-bg-secondary); border-top: 1px solid var(--gd-border);">
+            <div style="color: var(--gd-text-muted);">
+                <i class="bi bi-shield-check me-1" style="color: var(--gd-success);"></i>
+                <strong>Privacy Protected (Discussion 20):</strong> Citizen personal identity and internal remarks are excluded from public inquiry.
+            </div>
+            <div>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Homepage
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Escalations & Dispute Review - Glass Desk";
+    ViewData["Title"] = "Escalations & Dispute Review — Glass Desk";
 }
 
 <div class="container py-4">
@@ -7,86 +7,95 @@
     <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb small">
             <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Supervisor Portal</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Escalations, Disputes & Reopenings</li>
+            <li class="breadcrumb-item active" aria-current="page">Dispute & Escalation Adjudication</li>
         </ol>
     </nav>
 
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom" style="border-color: var(--gd-border) !important;">
         <div>
-            <h2 class="fw-bold mb-0 text-dark">Supervisor Oversight & Dispute Review</h2>
-            <p class="text-muted mb-0 small">Audit citizen-disputed resolutions, review formal reopening requests, and manage overdue cases.</p>
+            <h2 class="fw-bold mb-0 text-white" style="letter-spacing: -0.02em;">Dispute Adjudication & SLA Escalations</h2>
+            <p class="small mb-0" style="color: var(--gd-text-secondary);">
+                Adjudicate citizen-disputed resolution claims, review formal reopening requests, and manage overdue service targets.
+            </p>
         </div>
         <div>
-            <span class="badge bg-warning text-dark px-3 py-2">
-                <i class="bi bi-gear-wide me-1"></i> Supervisor Review (In Progress)
+            <span class="badge bg-warning text-dark px-3 py-2 fw-semibold">
+                <i class="bi bi-gear-wide me-1"></i> Supervisor Console (In Progress)
             </span>
         </div>
     </div>
 
-    <!-- In-Progress Notice -->
-    <div class="alert alert-info d-flex align-items-center shadow-xs border-0 mb-4" role="alert">
+    <!-- Prototype State Notice -->
+    <div class="alert alert-info d-flex align-items-center shadow-xs border-0 mb-4" role="alert" style="background-color: var(--gd-info-bg); border: 1px solid rgba(96, 165, 250, 0.25);">
         <i class="bi bi-info-circle-fill fs-4 me-3 text-info"></i>
         <div>
-            <strong class="d-block">Interactive Supervisory Mock Active</strong>
-            <span class="small">
-                This console demonstrates Discussions 5, 25, & 26. Supervisor adjudication and workflow reversal to active status will connect in the workflow logic phase.
+            <strong class="d-block text-white small">Interactive Supervisory Mock Active</strong>
+            <span class="small" style="color: var(--gd-text-secondary);">
+                This console demonstrates Discussions 5, 25, & 26. Supervisor adjudication, workflow reversal back to active InProgress status, and audit trail preservation connect in the workflow logic milestone.
             </span>
         </div>
     </div>
 
     <div class="row g-4">
-        <!-- Disputed Case Adjudication -->
+        <!-- Disputed Case Adjudication Column -->
         <div class="col-lg-8">
-            <div class="card shadow-sm border-0 border-start border-4 border-danger mb-4">
-                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-                    <div>
-                        <span class="badge bg-danger me-1">Citizen Dispute</span>
-                        <strong class="font-monospace text-primary">GD-9X4M-1B2C</strong>
+            <div class="card shadow-sm border mb-4" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-critical) !important; border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+                <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-danger">Citizen Dispute</span>
+                        <span class="font-monospace fw-bold" style="color: var(--gd-teal);">GD-9X4M-1B2C</span>
                     </div>
-                    <span class="badge bg-warning text-dark">Awaiting Supervisor Adjudication</span>
+                    <span class="badge" style="background-color: var(--gd-warning-bg); color: var(--gd-warning); border: 1px solid rgba(251, 191, 36, 0.3);">
+                        Awaiting Supervisor Adjudication
+                    </span>
                 </div>
                 <div class="card-body p-4">
-                    <h5 class="fw-bold text-dark mb-2">Water supply pipeline leak in commercial lane</h5>
-                    <div class="text-muted small mb-3">
-                        <i class="bi bi-geo-alt text-danger me-1"></i> Sector G-9/2 | Assigned Dept: <strong>Water and Sanitation</strong>
+                    <h5 class="fw-bold text-white mb-2">Water supply pipeline leak in commercial lane</h5>
+                    <div class="d-flex flex-wrap gap-3 small mb-3" style="color: var(--gd-text-secondary);">
+                        <span><i class="bi bi-geo-alt text-danger me-1"></i> Sector G-9/2</span>
+                        <span><i class="bi bi-building me-1 text-teal"></i> Assigned: Water and Sanitation</span>
                     </div>
 
-                    <!-- Dispute Details Box -->
-                    <div class="p-3 rounded bg-light border mb-4">
-                        <div class="fw-semibold text-danger small mb-1">
-                            <i class="bi bi-exclamation-octagon me-1"></i> Citizen Dispute Reason (Submitted within 7-Day Window):
+                    <!-- Dispute Context Box -->
+                    <div class="p-3 rounded border mb-4" style="background-color: var(--gd-bg-secondary); border-color: var(--gd-border) !important;">
+                        <div class="small fw-semibold d-flex align-items-center gap-1 mb-2" style="color: var(--gd-critical);">
+                            <i class="bi bi-exclamation-octagon"></i> Citizen Dispute Statement (Lodged within 7-Day Window):
                         </div>
-                        <p class="text-secondary small mb-2">
+                        <p class="small mb-3 text-white" style="line-height: 1.6;">
                             "The department marked this case resolved, claiming the pipe was sealed. However, water is still seeping through the pavement and flooding our storefront."
                         </p>
-                        <div class="text-muted small">
-                            <em>Previous Officer Resolution Claim: "Fitted clamp to 4-inch pipe segment."</em>
+                        <div class="small pt-2 border-top" style="border-color: var(--gd-border) !important; color: var(--gd-text-muted);">
+                            <span class="text-white fw-semibold">Previous Department Claim:</span> "Fitted clamp to 4-inch pipe segment."
                         </div>
                     </div>
 
                     <form>
-                        <!-- Adjudication Options -->
+                        <!-- Adjudication Options (Discussion 26) -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Supervisor Adjudication Action <span class="text-danger">*</span></label>
-                            <select class="form-select">
-                                <option value="Reopen" selected>Approve Reopening (Return to active InProgress with instructions)</option>
-                                <option value="Uphold">Uphold Resolution (Confirm fix and close case with remarks)</option>
-                                <option value="Reassign">Transfer to New Team / External Agency</option>
+                            <label class="form-label">Supervisor Adjudication Decision <span class="text-danger">*</span></label>
+                            <select class="form-select" required>
+                                <option value="Reopen" selected>Approve Reopening (Return case to InProgress with mandatory corrective directives)</option>
+                                <option value="Uphold">Uphold Resolution (Confirm previous repair proof and close case with recorded justification)</option>
+                                <option value="Reassign">Transfer to Senior Engineering Crew</option>
                             </select>
                         </div>
 
                         <!-- Supervisor Directives -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">Supervisor Directives / Action Notes <span class="text-danger">*</span></label>
-                            <textarea class="form-control" rows="3" placeholder="e.g. Dispatched senior inspection supervisor to re-evaluate pipe integrity. Case reopened for secondary excavation."></textarea>
+                            <label class="form-label">Supervisory Directives & Action Notes <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="3" placeholder="e.g. Dispatched senior inspection supervisor to re-evaluate pipe integrity. Case reopened for secondary excavation." required></textarea>
+                            <div class="small mt-1" style="color: var(--gd-text-muted); font-size: 0.76rem;">
+                                Directives will be appended as a permanent, immutable record in ComplaintActions.
+                            </div>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                        <!-- Action Controls -->
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top" style="border-color: var(--gd-border) !important;">
                             <a asp-action="Index" class="btn btn-outline-secondary">
                                 <i class="bi bi-arrow-left me-1"></i> Back to Oversight
                             </a>
-                            <button type="button" class="btn btn-teal text-white px-4 fw-semibold shadow-sm" disabled>
+                            <button type="button" class="btn btn-teal text-dark fw-semibold px-4 shadow-sm" disabled>
                                 <i class="bi bi-shield-check me-1"></i> Record Supervisor Decision (Backend Step)
                             </button>
                         </div>
@@ -95,33 +104,39 @@
             </div>
         </div>
 
-        <!-- Overdue SLA Sidebar -->
+        <!-- Overdue SLA Sidebar Column -->
         <div class="col-lg-4">
-            <div class="card shadow-sm border-0 border-start border-4 border-warning p-3 mb-3">
-                <div class="d-flex align-items-center gap-2 mb-2">
-                    <span class="badge bg-warning text-dark">SLA Alert</span>
-                    <strong class="text-dark small">Overdue Response Targets</strong>
+            <!-- Overdue SLA Card -->
+            <div class="card p-3 border mb-3 shadow-xs" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-warning) !important; border-color: var(--gd-border);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="badge bg-warning text-dark">SLA Escalation</span>
+                    <span class="small fw-semibold text-white">Overdue Response Target</span>
                 </div>
-                <p class="text-muted small mb-3">
-                    Monitors cases where department acknowledgment or resolution targets have elapsed (Discussion 25).
+                <p class="small mb-3" style="color: var(--gd-text-secondary); line-height: 1.5; font-size: 0.78rem;">
+                    Monitors cases where department acknowledgment or resolution deadlines have elapsed (Discussion 25).
                 </p>
 
-                <div class="p-3 rounded bg-light border small">
-                    <div class="d-flex justify-content-between mb-1">
-                        <strong class="font-monospace text-primary">GD-4L2P-8R9K</strong>
-                        <span class="badge bg-danger">+24h Overdue</span>
+                <div class="p-3 rounded border small mb-2" style="background-color: var(--gd-bg-secondary); border-color: var(--gd-border) !important;">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="font-monospace fw-bold" style="color: var(--gd-teal);">GD-4L2P-8R9K</span>
+                        <span class="badge bg-danger" style="font-size: 0.65rem;">+24h Overdue</span>
                     </div>
-                    <div class="fw-semibold text-dark mb-1">Clogged storm drain near school</div>
-                    <div class="text-muted mb-2">Assigned to: Field Team 3</div>
-                    <button class="btn btn-sm btn-outline-danger w-100" disabled>
-                        <i class="bi bi-bell me-1"></i> Send Expedite Notice
+                    <div class="fw-semibold text-white mb-1">Clogged storm drain near school</div>
+                    <div class="small mb-2" style="color: var(--gd-text-muted);">Assigned to: Field Team 3</div>
+                    <button class="btn btn-sm btn-outline-secondary w-100" style="font-size: 0.75rem; border-color: var(--gd-critical) !important; color: var(--gd-critical) !important;" disabled>
+                        <i class="bi bi-bell me-1"></i> Issue Supervisor Expedite Notice
                     </button>
                 </div>
             </div>
 
-            <div class="card shadow-sm border-0 bg-light p-3 small text-muted">
-                <strong class="text-dark d-block mb-1"><i class="bi bi-clock-history text-teal me-1"></i> 7-Day Rule (Discussion 5):</strong>
-                Citizens have exactly 7 days to review resolutions. If no response is received, the case closes automatically as <em>Closed — No Citizen Response</em>, distinguished from confirmed fixes.
+            <!-- 7-Day Rule Reminder Box -->
+            <div class="card p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                <div class="small" style="color: var(--gd-text-secondary); font-size: 0.78rem; line-height: 1.5;">
+                    <strong class="text-white d-block mb-1">
+                        <i class="bi bi-clock-history text-teal me-1"></i> Discussion 5 Policy:
+                    </strong>
+                    Citizens have exactly 7 days to review resolutions. If unacknowledged after 7 days, cases transition to <em>Closed — No Citizen Response</em>, distinguishing them from confirmed fixes.
+                </div>
             </div>
         </div>
     </div>

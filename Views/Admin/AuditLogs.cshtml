@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "System Audit Logs - Glass Desk";
+    ViewData["Title"] = "System Audit Logs — Glass Desk";
 }
 
 <div class="container py-4">
@@ -11,36 +11,48 @@
         </ol>
     </nav>
 
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom" style="border-color: var(--gd-border) !important;">
         <div>
-            <h2 class="fw-bold mb-0 text-dark">Dedicated System-Wide Audit Log</h2>
-            <p class="text-muted mb-0 small">Append-only administrative trail of authentication, security events, and role updates (Discussion 35 & 36).</p>
+            <h2 class="fw-bold mb-0 text-white" style="letter-spacing: -0.02em;">Dedicated System-Wide Audit Log</h2>
+            <p class="small mb-0" style="color: var(--gd-text-secondary);">
+                Append-only administrative trail of security events, role changes, and access boundaries (Discussions 35 & 36).
+            </p>
         </div>
         <div>
-            <span class="badge bg-warning text-dark px-3 py-2">
+            <span class="badge bg-warning text-dark px-3 py-2 fw-semibold">
                 <i class="bi bi-gear-wide me-1"></i> Audit Viewer (In Progress)
             </span>
         </div>
     </div>
 
-    <!-- Security Guarantee Box -->
-    <div class="alert alert-dark d-flex align-items-center shadow-xs border-0 mb-4" role="alert">
-        <i class="bi bi-shield-check fs-3 me-3 text-success"></i>
+    <!-- Security & Integrity Guarantee Box -->
+    <div class="alert d-flex align-items-center shadow-xs border mb-4" role="alert" style="background-color: var(--gd-bg-card); border-color: var(--gd-border) !important;">
+        <div class="p-2 rounded-circle me-3" style="background-color: var(--gd-success-bg);">
+            <i class="bi bi-shield-check fs-4" style="color: var(--gd-success);"></i>
+        </div>
         <div>
-            <strong class="d-block text-white">Append-Only Audit Guarantee (Discussion 36)</strong>
-            <span class="small text-white-50">
-                Audit records cannot be edited or deleted through the application. Passwords and secrets are never logged.
+            <strong class="d-block text-white small">Append-Only Audit Guarantee (Discussion 36)</strong>
+            <span class="small" style="color: var(--gd-text-secondary);">
+                Audit entries cannot be edited or deleted through the application. Secrets, passwords, and sensitive citizen contact information are strictly excluded from logging.
             </span>
         </div>
     </div>
 
-    <!-- Audit Log Table -->
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-            <span class="fw-semibold text-dark"><i class="bi bi-journal-text text-teal me-1"></i> Recorded Security Events</span>
-            <span class="badge bg-light text-dark border">Sample Activity</span>
+    <!-- Audit Log Table Card -->
+    <div class="card shadow-sm border" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fw-semibold text-white small">
+                    <i class="bi bi-journal-text me-1 text-teal"></i> Recorded Security & Governance Events
+                </span>
+                <span class="badge" style="background-color: var(--gd-bg-card); border: 1px solid var(--gd-border); color: var(--gd-text-secondary); font-size: 0.68rem;">
+                    SystemAuditLogs
+                </span>
+            </div>
+            <span class="badge badge-teal">Recent Activity</span>
         </div>
+
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0 small">
@@ -48,48 +60,56 @@
                         <tr>
                             <th class="ps-3">Timestamp (UTC)</th>
                             <th>Event Type</th>
-                            <th>Actor</th>
+                            <th>Attributed Actor</th>
                             <th>Affected Resource</th>
                             <th>Outcome</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="ps-3 text-muted">@DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm")</td>
-                            <td><span class="badge bg-primary">UserLoginSuccess</span></td>
-                            <td><strong>admin@glassdesk.local</strong></td>
-                            <td>Session Authorization Cookie</td>
+                            <td class="ps-3" style="color: var(--gd-text-muted);">@DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td><span class="badge badge-teal">UserLoginSuccess</span></td>
+                            <td><strong class="text-white">admin@glassdesk.local</strong></td>
+                            <td style="color: var(--gd-text-secondary);">Session Cookie Auth (Role: Administrator)</td>
                             <td><span class="badge bg-success">Success</span></td>
                         </tr>
                         <tr>
-                            <td class="ps-3 text-muted">@DateTime.UtcNow.AddMinutes(-12).ToString("yyyy-MM-dd HH:mm")</td>
-                            <td><span class="badge bg-secondary">SystemDatabasePing</span></td>
-                            <td><strong>System Startup</strong></td>
-                            <td>MongoDB (glassdeskdb)</td>
+                            <td class="ps-3" style="color: var(--gd-text-muted);">@DateTime.UtcNow.AddMinutes(-12).ToString("yyyy-MM-dd HH:mm")</td>
+                            <td><span class="badge badge-indigo">DatabasePing</span></td>
+                            <td><strong class="text-white">System Monitor</strong></td>
+                            <td style="color: var(--gd-text-secondary);">MongoDB (glassdeskdb)</td>
                             <td><span class="badge bg-success">Online</span></td>
                         </tr>
                         <tr>
-                            <td class="ps-3 text-muted">@DateTime.UtcNow.AddMinutes(-30).ToString("yyyy-MM-dd HH:mm")</td>
-                            <td><span class="badge bg-dark">DatabaseSeederExecuted</span></td>
-                            <td><strong>Startup Lifecycle</strong></td>
-                            <td>users collection (5 seeded accounts)</td>
+                            <td class="ps-3" style="color: var(--gd-text-muted);">@DateTime.UtcNow.AddMinutes(-30).ToString("yyyy-MM-dd HH:mm")</td>
+                            <td><span class="badge bg-secondary">DbSeederExecuted</span></td>
+                            <td><strong class="text-white">Application Startup</strong></td>
+                            <td style="color: var(--gd-text-secondary);">users collection (5 seeded demo accounts)</td>
                             <td><span class="badge bg-success">Complete</span></td>
                         </tr>
                         <tr>
-                            <td class="ps-3 text-muted">@DateTime.UtcNow.AddHours(-1).ToString("yyyy-MM-dd HH:mm")</td>
+                            <td class="ps-3" style="color: var(--gd-text-muted);">@DateTime.UtcNow.AddHours(-1).ToString("yyyy-MM-dd HH:mm")</td>
                             <td><span class="badge bg-warning text-dark">AccessControlCheck</span></td>
-                            <td><strong>Anonymous Visitor</strong></td>
-                            <td>/Admin Portal Request</td>
-                            <td><span class="badge bg-danger">Denied (403)</span></td>
+                            <td><strong class="text-white">Anonymous Visitor</strong></td>
+                            <td style="color: var(--gd-text-secondary);">/Admin Portal Request</td>
+                            <td><span class="badge bg-danger">Blocked (403)</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="card-footer bg-white border-top py-3 text-end">
-            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
-                <i class="bi bi-arrow-left me-1"></i> Back to Admin Console
-            </a>
+
+        <!-- Card Footer -->
+        <div class="card-footer d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 small" style="background-color: var(--gd-bg-secondary); border-top: 1px solid var(--gd-border); font-size: 0.76rem; color: var(--gd-text-muted);">
+            <div>
+                <i class="bi bi-info-circle me-1 text-teal"></i>
+                <strong>Discussion 35:</strong> SystemAuditLogs covers administrative security events; ComplaintActions covers complaint workflow history.
+            </div>
+            <div>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm" style="font-size: 0.78rem;">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Admin Console
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -1,68 +1,110 @@
 ﻿@model GlassDesk.Models.RegisterViewModel
 @{
-    ViewData["Title"] = "Citizen Registration - Glass Desk";
+    ViewData["Title"] = "Create Citizen Account — Glass Desk";
 }
 
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-7 col-lg-6">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-primary text-white text-center py-3">
-                    <h4 class="mb-0 fw-bold">Citizen Registration</h4>
-                    <small class="text-white-50">Create an account to submit and track your municipal complaints</small>
+        <div class="col-md-8 col-lg-6">
+            <!-- Registration Card -->
+            <div class="card shadow-md border" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-lg);">
+                <!-- Header -->
+                <div class="card-header text-center py-4" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded mb-2" style="width: 44px; height: 44px; background: linear-gradient(135deg, rgba(45, 212, 191, 0.2) 0%, rgba(165, 180, 252, 0.1) 100%); border: 1px solid rgba(45, 212, 191, 0.4);">
+                        <i class="bi bi-person-badge fs-4" style="color: var(--gd-teal);"></i>
+                    </div>
+                    <h4 class="fw-bold text-white mb-0" style="letter-spacing: -0.02em;">Create Citizen Account</h4>
+                    <span class="small" style="color: var(--gd-text-secondary); font-size: 0.8rem;">Every Concern. Clear Progress.</span>
                 </div>
+
                 <div class="card-body p-4">
+                    <!-- Policy Notice (Section 5) -->
+                    <div class="p-3 rounded mb-4 small" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border); color: var(--gd-text-secondary); line-height: 1.5;">
+                        <i class="bi bi-info-circle text-teal me-1"></i>
+                        <strong>Citizen Registration:</strong> This portal is for residents to report municipal issues and track resolution evidence. Staff, supervisor, and administrator accounts are provisioned internally by system governance.
+                    </div>
 
                     <form asp-action="Register" method="post">
                         @Html.AntiForgeryToken()
 
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3 small" role="alert"></div>
 
                         <!-- Full Name -->
                         <div class="mb-3">
-                            <label asp-for="FullName" class="form-label fw-semibold">Full Name</label>
-                            <input asp-for="FullName" class="form-control" placeholder="e.g. Ahmad Khan" />
+                            <label asp-for="FullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person" style="color: var(--gd-teal);"></i>
+                                </span>
+                                <input asp-for="FullName" class="form-control" placeholder="e.g. Ahmad Khan" required />
+                            </div>
                             <span asp-validation-for="FullName" class="text-danger small"></span>
                         </div>
 
-                        <!-- Email -->
+                        <!-- Email Address -->
                         <div class="mb-3">
-                            <label asp-for="Email" class="form-label fw-semibold">Email Address</label>
-                            <input asp-for="Email" class="form-control" placeholder="citizen@example.com" />
+                            <label asp-for="Email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope" style="color: var(--gd-teal);"></i>
+                                </span>
+                                <input asp-for="Email" class="form-control" placeholder="citizen@example.com" autocomplete="email" required />
+                            </div>
                             <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
 
                         <!-- Phone Number -->
                         <div class="mb-3">
-                            <label asp-for="PhoneNumber" class="form-label fw-semibold">Phone Number</label>
-                            <input asp-for="PhoneNumber" class="form-control" placeholder="0300-1234567" />
+                            <label asp-for="PhoneNumber" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-telephone" style="color: var(--gd-teal);"></i>
+                                </span>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="0300-1234567" required />
+                            </div>
+                            <span class="small d-block mt-1" style="color: var(--gd-text-muted); font-size: 0.74rem;">
+                                Used strictly for case resolution verification; never shared publicly.
+                            </span>
                             <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
                         </div>
 
                         <!-- Password -->
                         <div class="mb-3">
-                            <label asp-for="Password" class="form-label fw-semibold">Password</label>
-                            <input asp-for="Password" class="form-control" type="password" placeholder="At least 12 characters" />
-                            <div class="form-text small text-muted">
-                                Security Rule: Must be at least 12 characters long.
+                            <label asp-for="Password" class="form-label">Password <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-lock" style="color: var(--gd-teal);"></i>
+                                </span>
+                                <input asp-for="Password" class="form-control" type="password" placeholder="At least 12 characters" autocomplete="new-password" required />
+                            </div>
+                            <div class="d-flex align-items-center gap-1 mt-1 small" style="color: var(--gd-text-muted); font-size: 0.74rem;">
+                                <i class="bi bi-shield-check" style="color: var(--gd-teal);"></i>
+                                <span>Policy: Minimum 12 characters with salted PBKDF2 hashing.</span>
                             </div>
                             <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
 
                         <!-- Confirm Password -->
                         <div class="mb-4">
-                            <label asp-for="ConfirmPassword" class="form-label fw-semibold">Confirm Password</label>
-                            <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Re-enter password" />
+                            <label asp-for="ConfirmPassword" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-shield-lock" style="color: var(--gd-teal);"></i>
+                                </span>
+                                <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Re-enter password" autocomplete="new-password" required />
+                            </div>
                             <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                         </div>
 
-                        <div class="d-grid mb-3">
-                            <button type="submit" class="btn btn-primary btn-lg fw-semibold">Create Citizen Account</button>
-                        </div>
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-teal w-100 text-dark fw-semibold py-2 mb-3 shadow-sm">
+                            <i class="bi bi-check2-circle me-1"></i> Register Citizen Account
+                        </button>
 
-                        <div class="text-center pt-2 border-top">
-                            <span class="text-muted">Already have an account? </span>
-                            <a asp-action="Login" class="fw-semibold text-decoration-none">Sign In Here</a>
+                        <!-- Back to Sign In -->
+                        <div class="text-center pt-3 border-top small" style="border-color: var(--gd-border) !important;">
+                            <span style="color: var(--gd-text-secondary);">Already have an account? </span>
+                            <a asp-action="Login" class="fw-semibold text-decoration-none" style="color: var(--gd-teal);">Sign In Here</a>
                         </div>
                     </form>
                 </div>
@@ -72,7 +114,5 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

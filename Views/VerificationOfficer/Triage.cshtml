@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Priority Triage & Duplicate Review - Glass Desk";
+    ViewData["Title"] = "Priority Triage & Duplicate Review — Glass Desk";
 }
 
 <div class="container py-4">
@@ -11,25 +11,27 @@
         </ol>
     </nav>
 
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom" style="border-color: var(--gd-border) !important;">
         <div>
-            <h2 class="fw-bold mb-0 text-dark">Intake Triage & Duplicate Review</h2>
-            <p class="text-muted mb-0 small">Verify case details, assign official priority, inspect DSA duplicate suggestions, and route to department.</p>
+            <h2 class="fw-bold mb-0 text-white" style="letter-spacing: -0.02em;">Intake Triage & Duplicate Review</h2>
+            <p class="small mb-0" style="color: var(--gd-text-secondary);">
+                Verify case details, assign official priority, inspect DSA duplicate suggestions, and route to department.
+            </p>
         </div>
         <div>
-            <span class="badge bg-warning text-dark px-3 py-2">
+            <span class="badge bg-warning text-dark px-3 py-2 fw-semibold">
                 <i class="bi bi-gear-wide me-1"></i> Triage Console (In Progress)
             </span>
         </div>
     </div>
 
-    <!-- In-Progress Notice -->
-    <div class="alert alert-info d-flex align-items-center shadow-xs border-0 mb-4" role="alert">
+    <!-- Prototype State Notice -->
+    <div class="alert alert-info d-flex align-items-center shadow-xs border-0 mb-4" role="alert" style="background-color: var(--gd-info-bg); border: 1px solid rgba(96, 165, 250, 0.25);">
         <i class="bi bi-info-circle-fill fs-4 me-3 text-info"></i>
         <div>
-            <strong class="d-block">Interactive Triage Mock Active</strong>
-            <span class="small">
+            <strong class="d-block text-white small">Interactive Triage Mock Active</strong>
+            <span class="small" style="color: var(--gd-text-secondary);">
                 This console demonstrates Discussions 5, 10, & 23. Live sorting via C# Binary Heap Priority Queue and MongoDB status transitions will connect during the algorithmic processing milestone.
             </span>
         </div>
@@ -38,25 +40,27 @@
     <div class="row g-4">
         <!-- Main Triage Form Column -->
         <div class="col-lg-8">
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-                    <div>
-                        <span class="text-muted small">Sample Active Case:</span>
-                        <strong class="font-monospace text-primary ms-1">GD-7K4P-9X2M</strong>
+            <div class="card shadow-sm border mb-4" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+                <div class="card-header d-flex justify-content-between align-items-center" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="small" style="color: var(--gd-text-muted);">Active Case:</span>
+                        <strong class="font-monospace" style="color: var(--gd-teal);">GD-7K4P-9X2M</strong>
                     </div>
-                    <span class="badge bg-warning text-dark">Status: UnderVerification</span>
+                    <span class="badge" style="background-color: var(--gd-warning-bg); color: var(--gd-warning); border: 1px solid rgba(251, 191, 36, 0.3);">
+                        Status: UnderVerification
+                    </span>
                 </div>
                 <div class="card-body p-4">
-                    <!-- Case Overview -->
-                    <div class="mb-4 p-3 rounded bg-light border">
+                    <!-- Case Overview Card -->
+                    <div class="mb-4 p-3 rounded border" style="background-color: var(--gd-bg-secondary); border-color: var(--gd-border) !important;">
                         <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h5 class="fw-bold text-dark mb-0">Main water supply line ruptured, flooding street</h5>
-                            <span class="badge bg-secondary">Citizen Urgency: High</span>
+                            <h5 class="fw-bold text-white mb-0">Main water supply line ruptured, flooding street</h5>
+                            <span class="badge bg-warning text-dark">Citizen Urgency: High</span>
                         </div>
-                        <div class="text-muted small mb-2">
-                            <i class="bi bi-geo-alt text-danger me-1"></i> Area: <strong>Sector G-9/2, Near Commercial Area</strong> | Submitted: <strong>Today</strong>
+                        <div class="small mb-2" style="color: var(--gd-text-secondary);">
+                            <i class="bi bi-geo-alt text-danger me-1"></i> Area: <strong class="text-white">Sector G-9/2, Near Commercial Area</strong> | Submitted: <strong class="text-white">Today 06:15 AM</strong>
                         </div>
-                        <p class="text-secondary small mb-0">
+                        <p class="small mb-0" style="color: var(--gd-text-secondary); line-height: 1.6;">
                             "Clean water has been gushing from the main line since 6:00 AM, flooding adjacent shops and reducing water pressure for residential blocks."
                         </p>
                     </div>
@@ -64,26 +68,28 @@
                     <form>
                         <!-- Priority Assignment (Discussion 5) -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Assign Official Priority <span class="text-danger">*</span></label>
-                            <select class="form-select">
-                                <option value="Critical">Critical (Immediate safety / major utility disruption)</option>
-                                <option value="High" selected>High (Significant community impact)</option>
-                                <option value="Normal">Normal (Standard service request)</option>
-                                <option value="Low">Low (Minor cosmetic / non-urgent)</option>
+                            <label class="form-label">Assign Official Priority <span class="text-danger">*</span></label>
+                            <select class="form-select" required>
+                                <option value="Critical">Critical (Immediate danger / acute utility failure)</option>
+                                <option value="High" selected>High (Significant commercial / residential disruption)</option>
+                                <option value="Normal">Normal (Standard civic maintenance request)</option>
+                                <option value="Low">Low (Minor aesthetic / low-impact issue)</option>
                             </select>
-                            <div class="form-text small">Determines placement in the C# Priority Queue (Heap).</div>
+                            <div class="small mt-1" style="color: var(--gd-text-muted); font-size: 0.76rem;">
+                                Determines priority weight inside the C# Binary Heap Priority Queue (Discussion 10).
+                            </div>
                         </div>
 
                         <!-- Priority Justification -->
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Priority Justification / Triage Notes <span class="text-danger">*</span></label>
-                            <textarea class="form-control" rows="2" placeholder="e.g. Verified substantial water loss affecting commercial zone. Escalated to High priority."></textarea>
+                            <label class="form-label">Priority Justification & Triage Remarks <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="2" placeholder="e.g. Substantial potable water loss impacting commercial district. High priority confirmed for immediate team dispatch." required></textarea>
                         </div>
 
                         <!-- Department Assignment -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">Assign Responsible Municipal Department <span class="text-danger">*</span></label>
-                            <select class="form-select">
+                            <label class="form-label">Assign Municipal Department <span class="text-danger">*</span></label>
+                            <select class="form-select" required>
                                 <option value="Water" selected>Water and Sanitation</option>
                                 <option value="Roads">Transport and Road Services</option>
                                 <option value="Municipal">Municipal Services</option>
@@ -92,11 +98,12 @@
                             </select>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top" style="border-color: var(--gd-border) !important;">
                             <a asp-action="Index" class="btn btn-outline-secondary">
                                 <i class="bi bi-arrow-left me-1"></i> Back to Queue
                             </a>
-                            <button type="button" class="btn btn-teal text-white px-4 fw-semibold shadow-sm" disabled>
+                            <button type="button" class="btn btn-teal text-dark fw-semibold px-4 shadow-sm" disabled>
                                 <i class="bi bi-check-circle me-1"></i> Confirm Triage & Route (Backend Step)
                             </button>
                         </div>
@@ -105,36 +112,41 @@
             </div>
         </div>
 
-        <!-- DSA Duplicate Detection Sidebar -->
+        <!-- DSA Duplicate Candidate Sidebar -->
         <div class="col-lg-4">
-            <div class="card shadow-sm border-0 border-start border-4 border-info p-3 mb-3">
-                <div class="d-flex align-items-center gap-2 mb-2">
+            <!-- Duplicate Candidate Card -->
+            <div class="card p-3 border mb-3 shadow-xs" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-teal) !important; border-color: var(--gd-border);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="badge badge-teal">DSA Match Engine</span>
-                    <strong class="text-dark small">Duplicate Suggestions</strong>
+                    <span class="small fw-semibold text-white">Duplicate Candidate</span>
                 </div>
-                <p class="text-muted small mb-3">
-                    Our hash-matching algorithm detected 1 potential duplicate in the same approximate area (Discussion 23).
+                <p class="small mb-3" style="color: var(--gd-text-secondary); line-height: 1.5; font-size: 0.78rem;">
+                    Hash-based candidate matching detected 1 similar report in Sector G-9/2 (Discussion 23).
                 </p>
 
-                <!-- Duplicate Candidate Card -->
-                <div class="p-3 rounded bg-light border small">
-                    <div class="d-flex justify-content-between mb-1">
-                        <strong class="font-monospace text-primary">GD-3P9L-2K8F</strong>
-                        <span class="badge bg-success-subtle text-success border border-success-subtle">88% Match</span>
+                <div class="p-3 rounded border small mb-2" style="background-color: var(--gd-bg-secondary); border-color: var(--gd-border) !important;">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="font-monospace fw-bold" style="color: var(--gd-teal);">GD-3P9L-2K8F</span>
+                        <span class="badge bg-success" style="font-size: 0.65rem;">88% Similarity</span>
                     </div>
-                    <div class="fw-semibold text-dark mb-1">Water leakage in G-9/2 market</div>
-                    <div class="text-muted mb-2">Submitted 45 mins prior by another citizen.</div>
+                    <div class="fw-semibold text-white mb-1">Water leakage in G-9/2 market lane</div>
+                    <div class="small mb-2" style="color: var(--gd-text-muted);">Filed 45 mins earlier by another citizen.</div>
 
                     <div class="d-flex gap-2">
-                        <button class="btn btn-sm btn-outline-primary w-100" disabled>Link as Duplicate</button>
-                        <button class="btn btn-sm btn-outline-secondary w-100" disabled>Keep Separate</button>
+                        <button class="btn btn-sm btn-outline-primary w-100" style="font-size: 0.75rem;" disabled>Link Cases</button>
+                        <button class="btn btn-sm btn-outline-secondary w-100" style="font-size: 0.75rem;" disabled>Keep Separate</button>
                     </div>
                 </div>
             </div>
 
-            <div class="card shadow-sm border-0 bg-light p-3 small text-muted">
-                <strong class="text-dark d-block mb-1"><i class="bi bi-shield-check text-success me-1"></i> Discussion 23 Rule:</strong>
-                The system provides automated duplicate suggestions, but <em>never</em> automatically rejects a case. Final routing is always decided by an authorized officer.
+            <!-- Core Discussion 23 Rule Box -->
+            <div class="card p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                <div class="small" style="color: var(--gd-text-secondary); font-size: 0.78rem; line-height: 1.5;">
+                    <strong class="text-white d-block mb-1">
+                        <i class="bi bi-shield-check text-teal me-1"></i> Discussion 23 Principle:
+                    </strong>
+                    The system surfaces duplicate suggestions automatically, but <em>never</em> automatically rejects or hides a complaint. Final adjudication is always performed by a human officer.
+                </div>
             </div>
         </div>
     </div>

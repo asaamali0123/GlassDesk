@@ -1,54 +1,137 @@
 ﻿@{
-    ViewData["Title"] = "Supervisor Portal - Glass Desk";
+    ViewData["Title"] = "Supervisor Oversight — Glass Desk";
+    var deptName = User.FindFirst("Department")?.Value ?? "Water and Sanitation";
 }
 
 <div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+    <!-- Header Section -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom gap-3" style="border-color: var(--gd-border) !important;">
         <div>
-            <h2 class="fw-bold mb-0">Supervisor Oversight Portal</h2>
-            <p class="text-muted mb-0">Supervisor: <strong>@User.Identity?.Name</strong> | Dept: <strong>@User.FindFirst("Department")?.Value</strong></p>
-        </div>
-        <div>
-            <span class="badge bg-warning text-dark px-3 py-2 fs-6">Role: Supervisor</span>
-        </div>
-    </div>
-
-    <div class="row g-3 mb-4">
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 p-3 text-center border-start border-4 border-danger">
-                <h3 class="fw-bold text-danger mb-0">0</h3>
-                <small class="text-muted">Overdue Cases (Escalated)</small>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <h2 class="fw-bold mb-0 text-white" style="letter-spacing: -0.02em;">Supervisor Oversight Console</h2>
+                <span class="badge bg-warning text-dark fw-semibold">Supervisory Authority</span>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 p-3 text-center border-start border-4 border-warning">
-                <h3 class="fw-bold text-warning mb-0">0</h3>
-                <small class="text-muted">Citizen Disputes</small>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 p-3 text-center border-start border-4 border-info">
-                <h3 class="fw-bold text-info mb-0">0</h3>
-                <small class="text-muted">Reopening Requests</small>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 p-3 text-center border-start border-4 border-success">
-                <h3 class="fw-bold text-success mb-0">0</h3>
-                <small class="text-muted">Department Total Resolved</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-white py-3 fw-semibold">Escalation & Dispute Review Queue</div>
-        <div class="card-body text-center py-5 text-muted">
-            <p class="small text-muted mb-3">
-                Review citizen-disputed resolution claims, adjudicate reopening requests, and inspect SLA overdue breaches.
+            <p class="small mb-0" style="color: var(--gd-text-secondary);">
+                Supervisor: <strong>@User.Identity?.Name</strong> | Department Oversight: <strong class="text-white">@deptName</strong>
             </p>
-            <a asp-action="Escalations" class="btn btn-teal text-white shadow-sm px-4">
-                <i class="bi bi-exclamation-triangle me-1"></i> Open Dispute & Escalation Console
+        </div>
+        <div>
+            <a asp-action="Escalations" class="btn btn-teal text-dark fw-semibold shadow-sm px-4">
+                <i class="bi bi-shield-exclamation me-1"></i> Open Dispute & Escalation Console
             </a>
+        </div>
+    </div>
+
+    <!-- Oversight Operational Metrics -->
+    <div class="row g-3 mb-4">
+        <!-- Metric 1: Citizen Disputes -->
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-critical) !important; border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Citizen Disputes</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-critical);">1</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Resolution claims contested within 7 days</div>
+            </div>
+        </div>
+
+        <!-- Metric 2: Overdue SLA Cases -->
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-warning) !important; border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Overdue SLA Cases</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-warning);">1</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Elapsed resolution response targets</div>
+            </div>
+        </div>
+
+        <!-- Metric 3: Reopening Requests -->
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-teal) !important; border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Reopening Requests</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-teal);">0</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Formal requests to reopen closed cases</div>
+            </div>
+        </div>
+
+        <!-- Metric 4: Total Dept Resolved -->
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-left: 4px solid var(--gd-success) !important; border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Confirmed Resolved</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-success);">0</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Cases verified and confirmed closed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Escalation & Dispute Queue Table -->
+    <div class="card shadow-sm border" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fw-semibold text-white small">
+                    <i class="bi bi-exclamation-octagon me-1" style="color: var(--gd-critical);"></i> Priority Escalation & Dispute Queue
+                </span>
+                <span class="badge" style="background-color: var(--gd-bg-card); border: 1px solid var(--gd-border); color: var(--gd-text-secondary); font-size: 0.68rem;">
+                    @deptName
+                </span>
+            </div>
+            <span class="badge bg-danger">1 Action Required</span>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 small">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-3">Public Tracking ID</th>
+                            <th>Issue Summary</th>
+                            <th>Escalation Type</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Dispute Date</th>
+                            <th class="text-end pe-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ps-3">
+                                <span class="font-monospace fw-bold" style="color: var(--gd-teal);">GD-9X4M-1B2C</span>
+                            </td>
+                            <td>
+                                <strong class="text-white d-block">Water supply pipeline leak in commercial lane</strong>
+                                <span class="small" style="color: var(--gd-text-secondary);">Citizen claims water is still seeping through pavement despite fix claim.</span>
+                            </td>
+                            <td>
+                                <span class="badge" style="background-color: var(--gd-critical-bg); color: var(--gd-critical); border: 1px solid rgba(248, 113, 113, 0.3);">
+                                    Citizen Dispute
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge bg-danger">High</span>
+                            </td>
+                            <td>
+                                <span class="badge" style="background-color: var(--gd-critical-bg); color: var(--gd-critical); border: 1px solid rgba(248, 113, 113, 0.3);">
+                                    Disputed
+                                </span>
+                            </td>
+                            <td style="color: var(--gd-text-muted);">Today 10:15 AM</td>
+                            <td class="text-end pe-3">
+                                <a asp-action="Escalations" class="btn btn-teal btn-sm text-dark fw-semibold px-3" style="font-size: 0.78rem;">
+                                    <i class="bi bi-shield-check me-1"></i> Adjudicate Case
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer Governance Note -->
+        <div class="card-footer d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 small" style="background-color: var(--gd-bg-secondary); border-top: 1px solid var(--gd-border); font-size: 0.76rem; color: var(--gd-text-muted);">
+            <div>
+                <i class="bi bi-shield-check me-1" style="color: var(--gd-teal);"></i>
+                <strong>Discussions 5 & 26:</strong> Supervisors have sole authority to adjudicate citizen disputes and approve formal case reopenings.
+            </div>
+            <div>
+                <span class="badge" style="background-color: var(--gd-bg-card); border: 1px solid var(--gd-border); color: var(--gd-text-secondary);">Supervisory Oversight Active</span>
+            </div>
         </div>
     </div>
 </div>

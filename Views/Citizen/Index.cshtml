@@ -1,77 +1,98 @@
 ﻿@model List<GlassDesk.Models.Complaint>
 @{
-    ViewData["Title"] = "My Citizen Portal - Glass Desk";
+    ViewData["Title"] = "My Citizen Workspace — Glass Desk";
 
     var totalSubmitted = Model?.Count ?? 0;
-    var inProgress = Model?.Count(c => c.Status == GlassDesk.Models.ComplaintStatus.UnderVerification ||
-                                       c.Status == GlassDesk.Models.ComplaintStatus.Assigned ||
+    var inProgress = Model?.Count(c => c.Status == GlassDesk.Models.ComplaintStatus.UnderVerification || 
+                                       c.Status == GlassDesk.Models.ComplaintStatus.Assigned || 
                                        c.Status == GlassDesk.Models.ComplaintStatus.InProgress) ?? 0;
     var awaitingReview = Model?.Count(c => c.Status == GlassDesk.Models.ComplaintStatus.AwaitingCitizenReview) ?? 0;
-    var resolved = Model?.Count(c => c.Status == GlassDesk.Models.ComplaintStatus.Resolved ||
+    var resolved = Model?.Count(c => c.Status == GlassDesk.Models.ComplaintStatus.Resolved || 
                                      c.Status == GlassDesk.Models.ComplaintStatus.ClosedNoResponse) ?? 0;
 }
 
 <div class="container py-4">
     <!-- Header Section -->
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom gap-3">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom gap-3" style="border-color: var(--gd-border) !important;">
         <div>
             <div class="d-flex align-items-center gap-2 mb-1">
-                <h2 class="fw-bold mb-0 text-dark">Citizen Portal</h2>
+                <h2 class="fw-bold mb-0 text-white" style="letter-spacing: -0.02em;">Citizen Workspace</h2>
                 <span class="badge badge-teal">Verified Citizen</span>
             </div>
-            <p class="text-muted mb-0 small">
-                Welcome back, <strong>@User.Identity?.Name</strong> | Track your active service complaints and review department resolutions.
+            <p class="small mb-0" style="color: var(--gd-text-secondary);">
+                Welcome back, <strong>@User.Identity?.Name</strong> | Track your active reports, inspect resolution proof, and confirm case closures.
             </p>
         </div>
         <div>
-            <a asp-action="Submit" class="btn btn-teal text-white shadow-sm px-3">
-                <i class="bi bi-plus-circle me-1"></i> Submit New Complaint
-            </a>
-            <a asp-action="Submit" class="btn btn-primary px-4 py-2">
-                <i class="bi bi-plus-circle me-1"></i> + Submit Your First Complaint
+            <a asp-action="Submit" class="btn btn-teal text-dark fw-semibold shadow-sm px-4">
+                <i class="bi bi-plus-circle me-1"></i> Submit a Complaint
             </a>
         </div>
     </div>
 
-    <!-- Live Operational Metric Cards -->
+    <!-- Urgent Pending Action Banner (If cases are awaiting review) -->
+    @if (awaitingReview > 0)
+    {
+        <div class="alert alert-warning d-flex align-items-center justify-content-between p-3 mb-4 shadow-sm" role="alert" style="background-color: var(--gd-warning-bg); border-color: rgba(251, 191, 36, 0.4); color: var(--gd-warning);">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
+                <div>
+                    <strong class="d-block text-white">Action Required: Resolution Evidence Proposed (@awaitingReview Case@(awaitingReview > 1 ? "s" : ""))</strong>
+                    <span class="small" style="color: var(--gd-text-secondary);">
+                        The department has submitted repair evidence. You have 7 days to review and confirm or dispute before automatic closure.
+                    </span>
+                </div>
+            </div>
+            <span class="badge bg-warning text-dark px-3 py-2 fw-semibold">7-Day SLA Active</span>
+        </div>
+    }
+
+    <!-- Operational Metrics -->
     <div class="row g-3 mb-4">
+        <!-- Metric 1: Total -->
         <div class="col-6 col-lg-3">
-            <div class="card h-100 shadow-xs border p-3">
-                <div class="text-muted small text-uppercase fw-semibold mb-1">Total Submitted</div>
-                <div class="h2 fw-bold text-dark mb-0">@totalSubmitted</div>
-                <div class="text-muted small mt-2">All-time submissions</div>
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Total Submitted</div>
+                <div class="h2 fw-bold text-white mb-0 mt-1">@totalSubmitted</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">All-time civic filings</div>
             </div>
         </div>
+
+        <!-- Metric 2: In Progress -->
         <div class="col-6 col-lg-3">
-            <div class="card h-100 shadow-xs border p-3">
-                <div class="text-muted small text-uppercase fw-semibold mb-1">Under Action</div>
-                <div class="h2 fw-bold text-warning mb-0">@inProgress</div>
-                <div class="text-muted small mt-2">Verification & active repairs</div>
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">In Action / Triage</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-warning);">@inProgress</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Active repairs & inspection</div>
             </div>
         </div>
+
+        <!-- Metric 3: Awaiting Review -->
         <div class="col-6 col-lg-3">
-            <div class="card h-100 shadow-xs border p-3 @(awaitingReview > 0 ? "border-teal border-2" : "")">
-                <div class="text-muted small text-uppercase fw-semibold mb-1">Awaiting Your Review</div>
-                <div class="h2 fw-bold text-teal mb-0">@awaitingReview</div>
-                <div class="text-muted small mt-2">7-day review window active</div>
+            <div class="card h-100 p-3 border shadow-xs @(awaitingReview > 0 ? "border-teal" : "")" style="background-color: var(--gd-bg-card); border-color: @(awaitingReview > 0 ? "var(--gd-teal)" : "var(--gd-border)");">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Awaiting Your Review</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-teal);">@awaitingReview</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Requires citizen sign-off</div>
             </div>
         </div>
+
+        <!-- Metric 4: Resolved -->
         <div class="col-6 col-lg-3">
-            <div class="card h-100 shadow-xs border p-3">
-                <div class="text-muted small text-uppercase fw-semibold mb-1">Resolved Cases</div>
-                <div class="h2 fw-bold text-success mb-0">@resolved</div>
-                <div class="text-muted small mt-2">Confirmed closed</div>
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Resolved Cases</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-success);">@resolved</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Confirmed closed</div>
             </div>
         </div>
     </div>
 
     <!-- Complaints Management Panel -->
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-            <div class="fw-semibold text-dark">
-                <i class="bi bi-list-task me-1 text-teal"></i> My Complaint History
+    <div class="card shadow-sm border" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+            <div class="fw-semibold text-white small">
+                <i class="bi bi-list-task me-1" style="color: var(--gd-teal);"></i> My Recorded Submissions
             </div>
-            <span class="badge bg-light text-dark border">
+            <span class="badge" style="background-color: var(--gd-bg-card); border: 1px solid var(--gd-border); color: var(--gd-text-secondary);">
                 @totalSubmitted @(totalSubmitted == 1 ? "Record" : "Records")
             </span>
         </div>
@@ -79,18 +100,18 @@
         <div class="card-body p-0">
             @if (Model == null || !Model.Any())
             {
-                <!-- Friendly Empty State for First-Time Citizens (Section 5) -->
+                <!-- Empty State for First-Time Citizens (Section 5) -->
                 <div class="text-center py-5 px-3">
-                    <div class="p-4 rounded-circle d-inline-flex align-items-center justify-content-center bg-light border mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-inbox fs-1 text-muted"></i>
+                    <div class="p-4 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border);">
+                        <i class="bi bi-inbox fs-1" style="color: var(--gd-teal);"></i>
                     </div>
-                    <h5 class="fw-bold text-dark mb-2">No Complaints Submitted Yet</h5>
-                    <p class="text-muted small mx-auto mb-4" style="max-width: 440px;">
-                        Have you noticed a municipal issue like a water pipe burst, road pothole, or street light outage in your area? Report it to start a tracked case.
+                    <h5 class="fw-bold text-white mb-2">No Complaints Submitted Yet</h5>
+                    <p class="small mx-auto mb-4" style="color: var(--gd-text-secondary); max-width: 440px; line-height: 1.6;">
+                        Notice a water supply leak, road pothole, streetlight outage, or sanitation hazard in your neighborhood? Submit your first report to track it through verified resolution.
                     </p>
-                    <button class="btn btn-primary px-4 py-2" disabled>
+                    <a asp-action="Submit" class="btn btn-teal text-dark fw-semibold px-4 py-2 shadow-sm">
                         <i class="bi bi-plus-circle me-1"></i> + Submit Your First Complaint
-                    </button>
+                    </a>
                 </div>
             }
             else
@@ -101,7 +122,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="ps-3">Public Tracking ID</th>
-                                <th>Issue / Title</th>
+                                <th>Issue Summary</th>
                                 <th>Category</th>
                                 <th>Approx. Area</th>
                                 <th>Priority</th>
@@ -115,13 +136,15 @@
                             {
                                 <tr>
                                     <td class="ps-3">
-                                        <span class="font-monospace fw-bold text-primary">@complaint.PublicId</span>
+                                        <span class="font-monospace fw-bold" style="color: var(--gd-teal);">@complaint.PublicId</span>
                                     </td>
                                     <td>
-                                        <div class="fw-semibold text-dark">@complaint.Title</div>
+                                        <span class="fw-semibold text-white">@complaint.Title</span>
                                     </td>
-                                    <td><span class="badge bg-light text-dark border">@complaint.Category</span></td>
-                                    <td class="text-muted">@complaint.ApproximateLocation</td>
+                                    <td>
+                                        <span class="badge" style="background-color: var(--gd-bg-secondary); border: 1px solid var(--gd-border); color: var(--gd-text-secondary);">@complaint.Category</span>
+                                    </td>
+                                    <td style="color: var(--gd-text-secondary);">@complaint.ApproximateLocation</td>
                                     <td>
                                         @if (complaint.OfficialPriority == GlassDesk.Models.ComplaintPriority.Critical)
                                         {
@@ -139,7 +162,7 @@
                                     <td>
                                         @if (complaint.Status == GlassDesk.Models.ComplaintStatus.AwaitingCitizenReview)
                                         {
-                                            <span class="badge bg-info text-dark">Action Required: Review Fix</span>
+                                            <span class="badge badge-teal animate-entrance">Action: Review Fix</span>
                                         }
                                         else if (complaint.Status == GlassDesk.Models.ComplaintStatus.Resolved)
                                         {
@@ -147,14 +170,14 @@
                                         }
                                         else
                                         {
-                                            <span class="badge bg-primary">@complaint.Status</span>
+                                            <span class="badge bg-warning text-dark">@complaint.Status</span>
                                         }
                                     </td>
-                                    <td class="text-muted">@complaint.CreatedAt.ToString("MMM dd, yyyy")</td>
+                                    <td style="color: var(--gd-text-muted);">@complaint.CreatedAt.ToString("MMM dd, yyyy")</td>
                                     <td class="text-end pe-3">
-                                        <button class="btn btn-outline-secondary btn-sm" disabled>
-                                            View Details
-                                        </button>
+                                        <a asp-controller="Home" asp-action="Track" asp-route-id="@complaint.PublicId" class="btn btn-outline-secondary btn-sm" style="font-size: 0.78rem;">
+                                            <i class="bi bi-clock-history me-1"></i> Track Progress
+                                        </a>
                                     </td>
                                 </tr>
                             }

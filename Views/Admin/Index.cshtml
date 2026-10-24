@@ -1,125 +1,171 @@
 ﻿@{
-    ViewData["Title"] = "System Administration - Glass Desk";
+    ViewData["Title"] = "System Administration — Glass Desk";
 }
 
 <div class="container py-4">
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+    <!-- Header Section -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-3 border-bottom gap-3" style="border-color: var(--gd-border) !important;">
         <div>
             <div class="d-flex align-items-center gap-2 mb-1">
-                <h2 class="fw-bold mb-0 text-dark">System Administration</h2>
-                <span class="badge bg-dark px-2 py-1 fs-7">Role: Administrator</span>
+                <h2 class="fw-bold mb-0 text-white" style="letter-spacing: -0.02em;">System Administration & Governance</h2>
+                <span class="badge badge-teal">System Governance</span>
             </div>
-            <p class="text-muted mb-0 small">Signed in as <strong>@User.Identity?.Name</strong> | Central Administration Console</p>
+            <p class="small mb-0" style="color: var(--gd-text-secondary);">
+                Administrator: <strong>@User.Identity?.Name</strong> | Central Role & Department Directory
+            </p>
         </div>
         <div>
-            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
-                ● System Operational
+            <span class="badge" style="background-color: var(--gd-success-bg); color: var(--gd-success); border: 1px solid rgba(52, 211, 153, 0.3); padding: 0.45rem 0.85rem;">
+                <i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> System Operational
             </span>
         </div>
     </div>
 
-    <!-- Metric Cards -->
+    <!-- Governance Metrics -->
     <div class="row g-3 mb-4">
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 h-100 p-3">
-                <div class="text-muted small text-uppercase fw-semibold mb-1">Active Staff Accounts</div>
-                <div class="h2 fw-bold text-dark mb-0">5</div>
-                <div class="text-success small mt-2">● Seeded & Verified</div>
+        <!-- Metric 1: Staff Accounts -->
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Active Staff Accounts</div>
+                <div class="h2 fw-bold text-white mb-0 mt-1">5</div>
+                <div class="small mt-2" style="color: var(--gd-success); font-size: 0.76rem;"><i class="bi bi-check2 me-1"></i> Seeded & Active</div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 h-100 p-3">
-                <div class="text-muted small text-uppercase fw-semibold mb-1">Departments Active</div>
-                <div class="h2 fw-bold text-primary mb-0">5</div>
-                <div class="text-muted small mt-2">Municipal, Water, Health, Education, Roads</div>
+
+        <!-- Metric 2: Municipal Departments -->
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Municipal Departments</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-teal);">5</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">All divisions configured</div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 h-100 p-3">
-                <div class="text-muted small text-uppercase fw-semibold mb-1">SLA Response Targets</div>
-                <div class="h2 fw-bold text-teal mb-0">7 Days</div>
-                <div class="text-muted small mt-2">Citizen Review & Closure Rule</div>
+
+        <!-- Metric 3: SLA Review Window -->
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Citizen Review SLA</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-warning);">7 Days</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Confirmation window active</div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 h-100 p-3">
-                <div class="text-muted small text-uppercase fw-semibold mb-1">System Audit Logs</div>
-                <div class="h2 fw-bold text-secondary mb-0">Active</div>
-                <div class="text-muted small mt-2">Immutable Log Pipeline</div>
+
+        <!-- Metric 4: Audit Log Pipeline -->
+        <div class="col-6 col-lg-3">
+            <div class="card h-100 p-3 border shadow-xs" style="background-color: var(--gd-bg-card); border-color: var(--gd-border);">
+                <div class="small fw-semibold text-uppercase" style="color: var(--gd-text-muted); font-size: 0.72rem; letter-spacing: 0.04em;">Audit Trail</div>
+                <div class="h2 fw-bold mb-0 mt-1" style="color: var(--gd-indigo);">Active</div>
+                <div class="small mt-2" style="color: var(--gd-text-secondary); font-size: 0.76rem;">Append-only logging</div>
             </div>
         </div>
     </div>
 
     <!-- Management Panels -->
     <div class="row g-4">
+        <!-- Staff & Department Directory Column -->
         <div class="col-lg-8">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-header bg-white py-3 fw-semibold border-bottom">
-                    Staff & Department Governance
+            <div class="card shadow-sm border h-100" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+                <div class="card-header d-flex justify-content-between align-items-center" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+                    <span class="fw-semibold text-white small">
+                        <i class="bi bi-people me-1" style="color: var(--gd-teal);"></i> Staff & Department Directory
+                    </span>
+                    <span class="badge" style="background-color: var(--gd-bg-card); border: 1px solid var(--gd-border); color: var(--gd-text-secondary); font-size: 0.68rem;">
+                        4 Staff Seeded
+                    </span>
                 </div>
-                <div class="card-body">
-                    <p class="text-muted small mb-3">
-                        Administrators provision staff accounts, assign municipal departments, and enforce role permissions server-side.
-                    </p>
+                <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0 small">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Staff Member</th>
-                                    <th>Role</th>
+                                    <th class="ps-3">Staff Member</th>
+                                    <th>Assigned Role</th>
                                     <th>Department</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><strong>System Administrator</strong><br /><span class="text-muted">admin@glassdesk.local</span></td>
-                                    <td><span class="badge bg-dark">Administrator</span></td>
-                                    <td>Central Administration</td>
+                                    <td class="ps-3">
+                                        <strong class="text-white d-block">System Administrator</strong>
+                                        <span class="small" style="color: var(--gd-text-muted);">admin@glassdesk.local</span>
+                                    </td>
+                                    <td><span class="badge badge-teal">Administrator</span></td>
+                                    <td style="color: var(--gd-text-secondary);">Central Administration</td>
                                     <td><span class="badge bg-success">Active</span></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Verification Officer Tariq</strong><br /><span class="text-muted">verifier@glassdesk.local</span></td>
-                                    <td><span class="badge bg-info text-dark">Verification Officer</span></td>
-                                    <td>Central Triage</td>
+                                    <td class="ps-3">
+                                        <strong class="text-white d-block">Verification Officer Tariq</strong>
+                                        <span class="small" style="color: var(--gd-text-muted);">verifier@glassdesk.local</span>
+                                    </td>
+                                    <td><span class="badge badge-indigo">Verification Officer</span></td>
+                                    <td style="color: var(--gd-text-secondary);">Central Triage</td>
                                     <td><span class="badge bg-success">Active</span></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Engr. Taha (Officer)</strong><br /><span class="text-muted">officer.water@glassdesk.local</span></td>
+                                    <td class="ps-3">
+                                        <strong class="text-white d-block">Engr. Usman (Officer)</strong>
+                                        <span class="small" style="color: var(--gd-text-muted);">officer.water@glassdesk.local</span>
+                                    </td>
                                     <td><span class="badge bg-secondary">Department Officer</span></td>
-                                    <td>Water and Sanitation</td>
+                                    <td style="color: var(--gd-text-secondary);">Water and Sanitation</td>
                                     <td><span class="badge bg-success">Active</span></td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Director Fariha (Supervisor)</strong><br /><span class="text-muted">supervisor.water@glassdesk.local</span></td>
+                                    <td class="ps-3">
+                                        <strong class="text-white d-block">Director Fatima (Supervisor)</strong>
+                                        <span class="small" style="color: var(--gd-text-muted);">supervisor.water@glassdesk.local</span>
+                                    </td>
                                     <td><span class="badge bg-warning text-dark">Supervisor</span></td>
-                                    <td>Water and Sanitation</td>
+                                    <td style="color: var(--gd-text-secondary);">Water and Sanitation</td>
                                     <td><span class="badge bg-success">Active</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <div class="card-footer small" style="background-color: var(--gd-bg-secondary); border-top: 1px solid var(--gd-border); font-size: 0.76rem; color: var(--gd-text-muted);">
+                    <i class="bi bi-shield-check text-teal me-1"></i>
+                    <strong>Discussion 19:</strong> Public registration is locked to citizens; only authorized administrators can provision staff accounts.
+                </div>
             </div>
         </div>
 
+        <!-- Administrator Quick Actions Column -->
         <div class="col-lg-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-header bg-white py-3 fw-semibold border-bottom">
-                    Administrator Controls
+            <div class="card shadow-sm border h-100" style="background-color: var(--gd-bg-card); border-color: var(--gd-border); border-radius: var(--gd-radius-md);">
+                <div class="card-header small fw-semibold text-white" style="background-color: var(--gd-bg-secondary); border-bottom: 1px solid var(--gd-border);">
+                    <i class="bi bi-gear-wide me-1" style="color: var(--gd-teal);"></i> Governance Controls
                 </div>
-                <div class="card-body">
+                <div class="card-body p-3">
                     <div class="d-grid gap-2">
-                        <a asp-action="Staff" class="btn btn-outline-primary text-start">
-                            <i class="bi bi-person-plus me-1"></i> + Provision & Manage Staff Accounts
+                        <!-- Action 1: Provision Staff -->
+                        <a asp-action="Staff" class="btn btn-outline-primary text-start d-flex align-items-center justify-content-between p-3" style="border-color: var(--gd-border) !important; color: var(--gd-text-primary) !important; background-color: var(--gd-bg-secondary) !important;">
+                            <div>
+                                <strong class="d-block text-white small"><i class="bi bi-person-plus text-teal me-2"></i> Provision Staff Accounts</strong>
+                                <span class="small" style="color: var(--gd-text-muted); font-size: 0.74rem;">Create officers, supervisors, and assign departments.</span>
+                            </div>
+                            <i class="bi bi-chevron-right small text-muted"></i>
                         </a>
-                        <button class="btn btn-outline-secondary text-start" disabled>
-                            <i class="bi bi-clock-history me-1"></i> Configure SLA Response Targets
+
+                        <!-- Action 2: Audit Logs -->
+                        <a asp-action="AuditLogs" class="btn btn-outline-primary text-start d-flex align-items-center justify-content-between p-3" style="border-color: var(--gd-border) !important; color: var(--gd-text-primary) !important; background-color: var(--gd-bg-secondary) !important;">
+                            <div>
+                                <strong class="d-block text-white small"><i class="bi bi-shield-lock text-teal me-2"></i> Security & Audit Logs</strong>
+                                <span class="small" style="color: var(--gd-text-muted); font-size: 0.74rem;">Inspect append-only security and role events.</span>
+                            </div>
+                            <i class="bi bi-chevron-right small text-muted"></i>
+                        </a>
+
+                        <!-- Action 3: SLA Configuration (Disabled) -->
+                        <button class="btn btn-outline-secondary text-start d-flex align-items-center justify-content-between p-3" disabled style="border-color: var(--gd-border) !important; background-color: var(--gd-bg-secondary) !important;">
+                            <div>
+                                <strong class="d-block small text-muted"><i class="bi bi-clock-history me-2"></i> Configure SLA Targets</strong>
+                                <span class="small" style="color: var(--gd-text-muted); font-size: 0.74rem;">Adjust default prototype response targets.</span>
+                            </div>
+                            <span class="badge" style="background-color: var(--gd-bg-card); font-size: 0.65rem;">Configured</span>
                         </button>
-                        <a asp-action="AuditLogs" class="btn btn-outline-secondary text-start">
-                            <i class="bi bi-shield-check me-1"></i> View Security & Audit Logs
-                        </a>
                     </div>
                 </div>
             </div>
